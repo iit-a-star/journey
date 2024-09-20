@@ -1,0 +1,47 @@
+---
+import '../styles/styles.css';
+import '../styles/website.css';
+
+interface Props {
+	title: string;
+	center?: boolean;
+}
+
+const { title, center } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/png" href="/icon.png" />
+		<meta name="description" content="A simple financial app" />
+		<meta name="author" content="James Prevett,Joanne Porter,Michaelangelo Eldridge,Numa Fatima" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Journey - {title}</title>
+		<slot name="in-header" />
+		<style>
+			.center-content {
+				position: absolute;
+				left: 25%;
+				width: 50%;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="/" style="padding-top:2%">Home</a>
+		</nav><br /><br />
+		{
+			center ? (
+				<div class="center-content">
+					<slot />
+				</div>
+			) : (
+				<slot />
+			)
+		}
+	</body>
+</html>
