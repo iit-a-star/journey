@@ -6,3 +6,4 @@ tmp
 build
 .astro
 .wrangler
+src/env.d.ts
