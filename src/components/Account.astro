@@ -1,5 +1,5 @@
 ---
-import { getAccountRole, stripAccountInfo, type Account } from '@blankstorm/api';
+import { FullAccount, getAccountRole, stripAccountInfo, type Account } from '../api';
 
 interface Props {
 	account?: Account;
@@ -7,7 +7,7 @@ interface Props {
 }
 
 let { account, viewer } = Astro.props;
-const editable = account === viewer || viewer?.type > Math.max(account?.type, 1);
+const editable = account === viewer || viewer?.type! > Math.max(account?.type!, 1);
 const id = Math.random().toString(36).slice(2);
 ---
 
@@ -128,7 +128,7 @@ const id = Math.random().toString(36).slice(2);
 							)}
 						</td>
 					</tr>
-					{(viewer === account || viewer?.type > 0) && (
+					{(viewer === account || viewer?.type! > 0) && (
 						<tr>
 							<td>Email</td>
 							<td>
@@ -164,19 +164,19 @@ const id = Math.random().toString(36).slice(2);
 						<td>Username last changed</td>
 						<td>{account.lastchange.toString().slice(0, 15)}</td>
 					</tr>
-					{viewer?.type > 0 && (
+					{viewer?.type! > 0 && (
 						<tr>
 							<td>Disabled</td>
 							<td>{account.is_disabled ? 'Yes' : 'No'}</td>
 						</tr>
 					)}
-					{viewer?.type > 0 && (
+					{viewer?.type! > 0 && (
 						<tr>
 							<td>Logged in</td>
 							<td>{account.token ? 'Yes' : 'No'}</td>
 						</tr>
 					)}
-					{viewer?.type > 0 && (
+					{viewer?.type! > 0 && (
 						<tr>
 							<td>Active session</td>
 							<td>{account.session ? 'Yes' : 'No'}</td>
@@ -202,16 +202,16 @@ const id = Math.random().toString(36).slice(2);
 	}
 	{
 		editable && account != viewer && (
-			<a href={`/admin/email?to=${encodeURIComponent(`${account.username} <${account.email}>`)}`}>
+			<a href={`/admin/email?to=${encodeURIComponent(`${account?.username} <${account?.email}>`)}`}>
 				<button>Email</button>
 			</a>
 		)
 	}
-	{editable && (account.is_disabled ? viewer.type > account.type && <button id="#enable">Enable</button> : <button id="#disable">Disable</button>)}
+	{editable && (account?.is_disabled ? viewer?.type! > account?.type! && <button id="#enable">Enable</button> : <button id="#disable">Disable</button>)}
 	<script>
-		import { deleteAccount, logout, auth, update, type Account } from '@blankstorm/api';
+		import { deleteAccount, logout, auth, update, type Account } from '../api';
 
-		const account: Account = JSON.parse(decodeURIComponent(document.querySelector('#account')?.getAttribute('data-account')));
+		const account: Account = JSON.parse(decodeURIComponent(document.querySelector('#account')?.getAttribute('data-account')!));
 
 		const searchParams = new URLSearchParams(location.search);
 
@@ -231,39 +231,38 @@ const id = Math.random().toString(36).slice(2);
 			const el = document.createElement('div');
 			el.classList.add('error');
 			el.textContent = message;
-			document.querySelector('#error-container').append(el);
+			document.querySelector('#error-container')?.append(el);
 		}
 
-		const authToken = getCookie('token');
-		auth(authToken);
+		auth(getCookie('token')!);
 
 		const deleteButton = document.querySelector<HTMLButtonElement>('#delete'),
-			deleteDialog = document.querySelector<HTMLDialogElement>('#delete-dialog');
+			deleteDialog = document.querySelector<HTMLDialogElement>('#delete-dialog')!;
 		if (deleteButton) {
 			deleteButton.onclick = deleteDialog.showModal.bind(deleteDialog);
 		}
 
-		document.querySelector<HTMLButtonElement>('#delete-dialog .no').onclick = () => {
+		document.querySelector<HTMLButtonElement>('#delete-dialog .no')!.onclick = () => {
 			deleteDialog.close();
 		};
 
-		document.querySelector<HTMLButtonElement>('#delete-dialog .yes').onclick = () => {
+		document.querySelector<HTMLButtonElement>('#delete-dialog .yes')!.onclick = () => {
 			deleteAccount(account.id, 'User deleted account')
 				.then(() => (location.href = '/'))
 				.catch(handleError);
 		};
 
 		const logoutButton = document.querySelector<HTMLButtonElement>('#logout'),
-			logoutDialog = document.querySelector<HTMLDialogElement>('#logout-dialog');
+			logoutDialog = document.querySelector<HTMLDialogElement>('#logout-dialog')!;
 		if (logoutButton) {
 			logoutButton.onclick = logoutDialog.showModal.bind(logoutDialog);
 		}
 
-		document.querySelector<HTMLButtonElement>('#logout-dialog .no').onclick = () => {
+		document.querySelector<HTMLButtonElement>('#logout-dialog .no')!.onclick = () => {
 			logoutDialog.close();
 		};
 
-		document.querySelector<HTMLButtonElement>('#logout-dialog .yes').onclick = () => {
+		document.querySelector<HTMLButtonElement>('#logout-dialog .yes')!.onclick = () => {
 			logout(account.id)
 				.then(() => (location.href = '/'))
 				.catch(handleError);
@@ -274,8 +273,8 @@ const id = Math.random().toString(36).slice(2);
 			change.onclick = e => {
 				const key = searchParams.get('edit') as keyof Account | 'password';
 				if (key == 'password') {
-					const newPassword = document.querySelector<HTMLInputElement>('input[name=new_password]').value;
-					if (newPassword != document.querySelector<HTMLInputElement>('input[name=confirm_password]').value) {
+					const newPassword = document.querySelector<HTMLInputElement>('input[name=new_password]')?.value;
+					if (newPassword != document.querySelector<HTMLInputElement>('input[name=confirm_password]')?.value) {
 						return;
 					}
 
@@ -284,7 +283,7 @@ const id = Math.random().toString(36).slice(2);
 						.catch(handleError);
 					return;
 				}
-				const value = document.querySelector<HTMLInputElement>(`[name=${key}]`).value;
+				const value = document.querySelector<HTMLInputElement>(`[name=${key}]`)!.value;
 				update(account.id, key, value)
 					.then(() => location.reload())
 					.catch(handleError);

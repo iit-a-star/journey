@@ -1,0 +1,8 @@
+name = "iit-journey"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"                                       # i.e. available in your Worker on env.DB
+database_name = "iit-journey"
+database_id = "d34bbd87-a061-42bd-a639-1f2a5ef15242"
+preview_database_id = "DB"

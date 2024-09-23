@@ -1,6 +1,6 @@
 ---
 import Main from '../layouts/Main.astro';
-import { createAccount, login } from '@blankstorm/api';
+import { createAccount, login } from '../api';
 import { parseBody } from '../utils';
 
 let error;
@@ -33,7 +33,7 @@ if (Astro.request.method == 'POST') {
 		<input name="email" placeholder="E-Mail" style="width:25%" type="email" autocomplete="email" /><br />
 		<input name="username" placeholder="Username" style="width:25%" autocomplete="name" /><br />
 		<input name="password" placeholder="Password" style="width:25%" type="password" autocomplete="new-password" /><br /><br />
-		<input name="tos" type="checkbox" /><span>I agree to the Blankstorm <a href="/tos">Terms of Service</a></span><br /><br />
+		<!--<input name="tos" type="checkbox" /><span>I agree to the <a href="/tos">Terms of Service</a></span><br /><br /> -->
 		<button>Register</button>
 	</form>
 	<br />
