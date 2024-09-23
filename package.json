@@ -38,10 +38,7 @@
 		"format:check": "prettier --check .",
 		"lint": "tsc -p tsconfig.json --noEmit && eslint src",
 		"prepublishOnly": "npm run build",
-		"dev": "astro dev",
-		"start": "astro dev",
-		"build": "astro build",
-		"preview": "astro preview"
+		"build": "astro build"
 	},
 	"lint-staged": {
 		"*": [
@@ -60,9 +57,11 @@
 		"prettier": "^3.3.3",
 		"prettier-plugin-astro": "^0.14.1",
 		"typescript": "^5.6.2",
-		"typescript-eslint": "^8.6.0"
+		"typescript-eslint": "^8.6.0",
+		"wrangler": "^3.78.8"
 	},
 	"dependencies": {
+		"@astrojs/cloudflare": "^11.0.5",
 		"astro": "^4.15.8",
 		"marked": "^14.1.2"
 	}

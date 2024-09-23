@@ -4,3 +4,5 @@ docs
 *.log
 tmp
 build
+.astro
+.wrangler
