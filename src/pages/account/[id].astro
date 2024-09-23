@@ -1,0 +1,24 @@
+---
+import Main from '../../layouts/Main.astro';
+import AccountView from '../../components/Account.astro';
+
+const viewer = await currentUser(Astro.cookies);
+let account: Account, error: string | Error;
+try {
+	account = Astro.params.id ? await getAccount(Astro.params.id, viewer?.type > AccountType.ACCOUNT ? Access.PROTECTED : Access.PUBLIC) : viewer;
+} catch (e) {
+	error = e;
+}
+---
+
+<Main title="Account" center account={viewer}>
+	{
+		error ? (
+			<div class="error">
+				<p>{typeof error == 'string' ? error : error.message}</p>
+			</div>
+		) : (
+			<AccountView {account} {viewer} />
+		)
+	}
+</Main>

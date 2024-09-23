@@ -1,0 +1,10 @@
+---
+import Main from '../../layouts/Main.astro';
+import AccountView from '../../components/Account.astro';
+
+const account = await currentUser(Astro.cookies);
+---
+
+<Main title="Account" center {account}>
+	<AccountView {account} viewer={account} />
+</Main>
