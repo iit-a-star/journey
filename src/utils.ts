@@ -1,6 +1,7 @@
 import type { AstroCookies, AstroGlobal } from 'astro';
-import { type Account, getAccount, auth, AccountType } from './api.js';
 import { createHash } from 'node:crypto';
+import type { AccountType, Account } from './api.js';
+import { getAccount } from './api.js';
 
 export function hash(text: string): string {
 	return createHash('sha256').update(text).digest('hex');
@@ -11,7 +12,6 @@ export async function currentUser(cookies: AstroCookies): Promise<Account | unde
 		return;
 	}
 	const token = cookies.get('token')?.value;
-	auth(token);
 	try {
 		return await getAccount('token', token || '');
 	} catch (e) {

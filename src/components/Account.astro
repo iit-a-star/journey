@@ -116,11 +116,11 @@ const id = Math.random().toString(36).slice(2);
 						<td>{account.id}</td>
 					</tr>
 					<tr>
-						<td>Username</td>
+						<td>Name</td>
 						<td>
-							{account.username}&nbsp;&nbsp;
+							{account.name}&nbsp;&nbsp;
 							{editable && (
-								<a href="?edit=username">
+								<a href="?edit=name">
 									<svg class="icon">
 										<use href="#icon.edit" />
 									</svg>
@@ -202,13 +202,13 @@ const id = Math.random().toString(36).slice(2);
 	}
 	{
 		editable && account != viewer && (
-			<a href={`/admin/email?to=${encodeURIComponent(`${account?.username} <${account?.email}>`)}`}>
+			<a href={`/admin/email?to=${encodeURIComponent(`${account?.name} <${account?.email}>`)}`}>
 				<button>Email</button>
 			</a>
 		)
 	}
 	{editable && (account?.is_disabled ? viewer?.type! > account?.type! && <button id="#enable">Enable</button> : <button id="#disable">Disable</button>)}
-	<script>
+	<!--<script>
 		import { deleteAccount, logout, auth, update, type Account } from '../api';
 
 		const account: Account = JSON.parse(decodeURIComponent(document.querySelector('#account')?.getAttribute('data-account')!));
@@ -289,5 +289,5 @@ const id = Math.random().toString(36).slice(2);
 					.catch(handleError);
 			};
 		}
-	</script>
+	</script> -->
 </div>

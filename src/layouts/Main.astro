@@ -1,5 +1,5 @@
 ---
-import { Account } from '../api';
+import { Account, setDB } from '../api';
 import '../styles/styles.css';
 import '../styles/website.css';
 import { currentUser } from '../utils';
@@ -10,10 +10,12 @@ interface Props {
 	account?: Account;
 }
 
+setDB(Astro.locals.runtime.DB);
+
 const { title, center, account = await currentUser(Astro.cookies) } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />

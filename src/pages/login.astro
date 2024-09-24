@@ -1,11 +1,11 @@
 ---
 import Main from '../layouts/Main.astro';
 import { checkBody, hash, parseBody } from '../utils';
-import { getAccount, isValidAccountAttribute, login } from '../api';
+import { getAccount, isValidAccountAttribute, login, setDB } from '../api';
 
 let err: Error | undefined;
 if (Astro.request.method == 'POST') {
-	const db = Astro.locals.runtime.DB;
+	setDB(Astro.locals.runtime.DB);
 
 	try {
 		const body = await parseBody<{ email: string; password: string }>(Astro.request);
