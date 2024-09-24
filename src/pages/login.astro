@@ -1,6 +1,6 @@
 ---
 import Main from '../layouts/Main.astro';
-import { checkBody, hash, parseBody } from '../utils';
+import { checkParams, hash, parseBody } from '../utils';
 import { getAccount, isValidAccountAttribute, login, setDB } from '../api';
 
 let err: Error | undefined;
@@ -11,7 +11,7 @@ if (Astro.request.method == 'POST') {
 		const body = await parseBody<{ email: string; password: string }>(Astro.request);
 		if (!isValidAccountAttribute('email', body.email)) throw 'You must enter a valid email.';
 
-		const body = await checkBody(Astro.request, 'email', 'password');
+		checkParams(body, 'email', 'password');
 
 		const account = await getAccount('email', body.email);
 
@@ -27,14 +27,7 @@ if (Astro.request.method == 'POST') {
 			throw 'Incorrect password';
 		}
 
-		let token;
-		try {
-			token = await login(account.id);
-		} catch (err) {
-			return parseError(err);
-		}
-
-		const { token } = await login(account.id);
+		const token = await login(account.id);
 		Astro.cookies.set('token', token, { expires: new Date(Date.now() + 3600_000 * 24 * 28) });
 		return Astro.redirect('/');
 	} catch (e) {

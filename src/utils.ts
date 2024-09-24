@@ -43,28 +43,6 @@ export function checkParams<B extends Record<string, unknown>>(body: B, ...param
 	}
 }
 
-/**
- * Merges object intersection T.
- * A function type is used so that editors expand the type.
- */
-type Merge<T> = ReturnType<() => { [K in keyof T]: T[K] }>;
-
-export async function checkBody<const B>(request: Request, ...params: (keyof B & string)[]): Promise<Partial<Merge<B>>> {
-	const contentType = request.headers.get('Content-Type') ?? '';
-	if (request.headers.has('Content-Type') && !['text/json', 'application/json'].includes(contentType)) {
-		throw 'Content-Type "' + contentType + '" not supported';
-	}
-	let body: Partial<Merge<B>>;
-	try {
-		body = await request.json();
-	} catch (e) {
-		throw 'Missing request body';
-	}
-
-	checkParams(body, ...params);
-	return body;
-}
-
 export async function checkAdminAuth(astro: Readonly<AstroGlobal>, minType?: AccountType): Promise<Account | Response> {
 	const account = await currentUser(astro.cookies);
 
