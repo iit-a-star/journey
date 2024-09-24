@@ -5,11 +5,7 @@
 /**
  * Access level for information
  */
-export enum Access {
-	PRIVATE = 0,
-	PROTECTED = 1,
-	PUBLIC = 2,
-}
+export type Access = 'public' | 'protected' | 'private';
 
 /**
  * { a: b, c: d } -> [a, b] | [c, d]
@@ -30,28 +26,10 @@ export enum AccountType {
 	 * Standard accounts
 	 */
 	ACCOUNT = 0,
-	MODERATOR = 1,
 
-	/**
-	 * Alias for MODERATOR
-	 */
-	MOD = 1,
+	DEVELOPER = 1,
 
-	DEVELOPER = 2,
-
-	/**
-	 * Alias for DEVELOPER
-	 */
-	DEV = 2,
-
-	ADMINISTRATOR = 3,
-
-	/**
-	 * Alias for ADMINISTRATOR
-	 */
-	ADMIN = 3,
-
-	OWNER = 4,
+	ADMIN = 2,
 }
 
 /**
@@ -60,8 +38,8 @@ export enum AccountType {
  */
 export interface AccountResult {
 	id: string;
-	username: string;
-	email?: string;
+	name: string;
+	email: string;
 	type: AccountType;
 	lastchange: string;
 	created: string;
@@ -90,9 +68,9 @@ export interface Account {
 	id: string;
 
 	/**
-	 * The username of the account
+	 * The name of the individual or entity who owns the account
 	 */
-	username: string;
+	name: string;
 
 	/**
 	 * The email of the account
@@ -168,11 +146,9 @@ export function getAccountRole(type: AccountType, short?: boolean): string {
 		return accountRoles[type];
 	}
 	switch (type) {
-		case AccountType.MODERATOR:
-			return 'Mod';
 		case AccountType.DEVELOPER:
 			return 'Dev';
-		case AccountType.ADMINISTRATOR:
+		case AccountType.ADMIN:
 			return 'Admin';
 		default:
 			return accountRoles[type];
@@ -184,16 +160,16 @@ export function getAccountRole(type: AccountType, short?: boolean): string {
  * @param account the account to strip info from
  * @returns a new object without the stripped info
  */
-export function stripAccountInfo(account: Account, access: Access = Access.PUBLIC): Account {
+export function stripAccountInfo(account: Account, access: Access = 'public'): Account {
 	const info = {
 		id: account.id,
-		username: account.username,
+		name: account.name,
 		type: account.type,
 		lastchange: account.lastchange,
 		created: account.created,
 		is_disabled: account.is_disabled,
 	};
-	if (access == Access.PUBLIC) {
+	if (access == 'public') {
 		return info;
 	}
 	Object.assign(info, {
@@ -201,10 +177,11 @@ export function stripAccountInfo(account: Account, access: Access = Access.PUBLI
 		token: account.token,
 		session: account.session,
 	});
-	if (access == Access.PROTECTED || access == Access.PRIVATE) {
+	if (access == 'protected' || access == 'private') {
 		return info;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/restrict-plus-operands
 	throw new Error('Invalid access level: ' + access);
 }
 
@@ -220,14 +197,9 @@ export function checkAccountAttribute<K extends keyof FullAccount>(key: K, value
 			if (_value.length != 32) throw new Error('Invalid ID length');
 			if (!/^[0-9a-f]+$/.test(_value)) throw new Error('Invalid ID');
 			break;
-		case 'username':
-			if (_value.length < 3 || _value.length > 20) throw new Error('Usernames must be between 3 and 20 characters.');
-			if (!/^[_0-9a-zA-Z]+$/.test(_value)) throw new Error('Usernames can only contain letters, numbers, and underscores');
-			if (['admin', 'administrator', 'owner', 'moderator', 'developer'].includes(_value.toLowerCase())) throw new Error('That username is not allowed');
-			break;
 		case 'type':
 			if (typeof _value != 'number') throw new TypeError('Account type is not a number');
-			if (_value < AccountType.ACCOUNT || _value > AccountType.OWNER) throw new RangeError('Account type is not valid');
+			if (_value < AccountType.ACCOUNT || _value > AccountType.ADMIN) throw new RangeError('Account type is not valid');
 			break;
 		case 'email':
 			if (!/^[\w.-]+@[\w-]+(\.\w{2,})+$/.test(_value)) throw new Error('Invalid email');
@@ -272,13 +244,13 @@ export async function logout(id: string) {}
 
 export function auth(token?: string) {}
 
-export function getAccount(key: string, value: string): Account | undefined {
+export async function getAccount(key: string, value: string): Promise<Account | undefined> {
 	return undefined;
 }
 
-export function createAccount(email: string, username: string, password: string) {}
+export async function createAccount(email: string, username: string, password: string) {}
 
-export async function login(email: string, password: string): Promise<FullAccount> {
+export async function login(id: string): Promise<FullAccount> {
 	return {} as FullAccount;
 }
 

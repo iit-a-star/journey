@@ -46,6 +46,7 @@
 		]
 	},
 	"devDependencies": {
+		"@astrojs/check": "^0.9.3",
 		"@eslint/js": "^9.11.0",
 		"@fal-works/esbuild-plugin-global-externals": "^2.1.2",
 		"@stylistic/eslint-plugin": "^2.8.0",
@@ -57,12 +58,12 @@
 		"prettier": "^3.3.3",
 		"prettier-plugin-astro": "^0.14.1",
 		"typescript": "^5.6.2",
-		"typescript-eslint": "^8.6.0",
+		"typescript-eslint": "^8.7.0",
 		"wrangler": "^3.78.8"
 	},
 	"dependencies": {
-		"@astrojs/cloudflare": "^11.0.5",
-		"astro": "^4.15.8",
+		"@astrojs/cloudflare": "^11.1.0",
+		"astro": "^4.15.9",
 		"http-status-codes": "^2.3.0",
 		"marked": "^14.1.2"
 	}

@@ -35,7 +35,7 @@ const { title, center, account = await currentUser(Astro.cookies) } = Astro.prop
 	</head>
 	<body>
 		<nav>
-			<a id="account-link" class="sub-menu" href={account ? '/account' : '/login'}>{account ? 'Logged in as ' + account.username : 'Login'}</a>
+			<a id="account-link" class="sub-menu" href={account ? '/account' : '/login'}>{account ? 'Logged in as ' + account.name : 'Login'}</a>
 			{
 				account && (
 					<div class="sub-menu" style="position:fixed;right:1px;top:50px">
