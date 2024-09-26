@@ -27,7 +27,7 @@
 		"url": "https://github.com/iit-a-star/journey/issues"
 	},
 	"engines": {
-		"node": ">= 16"
+		"node": ">= 18.18"
 	},
 	"exports": {
 		".": "./dist/index.js",
