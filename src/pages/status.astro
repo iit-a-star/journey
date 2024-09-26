@@ -1,0 +1,7 @@
+---
+import Main from '../layouts/Main.astro';
+---
+
+<Main center title="Status">
+	<p>Database is working: {Astro.locals.runtime?.db ? 'Yes' : 'No'}</p>
+</Main>
