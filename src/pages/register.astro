@@ -6,7 +6,7 @@ import { parseBody } from '../utils';
 let error;
 
 if (Astro.request.method == 'POST') {
-	setDB(Astro.locals.runtime.DB);
+	setDB(Astro.locals.runtime?.DB);
 
 	try {
 		const body = await parseBody<{ username: string; email: string; password: string }>(Astro.request);
