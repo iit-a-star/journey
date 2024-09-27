@@ -1,14 +1,14 @@
 import type { D1Database } from '@cloudflare/workers-types';
 import { hash } from './utils.js';
-import { randomBytes } from 'node:crypto';
+//import { randomBytes } from 'node:crypto';
 
 function randomHex(length: number): string {
-	return randomBytes(length).toString('hex');
-	/*let bytes = '';
+	//return randomBytes(length).toString('hex');
+	let bytes = '';
 	for (let i = 0; i < length; i++) {
 		bytes += Math.round(Math.random() * 16).toString(16);
 	}
-	return bytes;*/
+	return bytes;
 }
 
 let db: D1Database;

@@ -1,10 +1,12 @@
 import type { AstroCookies, AstroGlobal } from 'astro';
-import { createHash } from 'node:crypto';
+//import { createHash } from 'node:crypto';
 import type { AccountType, Account } from './api.js';
 import { getAccount } from './api.js';
 
 export function hash(text: string): string {
-	return createHash('sha256').update(text).digest('hex');
+	//return createHash('sha256').update(text).digest('hex');
+
+	return [...text].map(c => String.fromCharCode(c.charCodeAt(0) % 31)).join('');
 }
 
 export async function currentUser(cookies: AstroCookies): Promise<Account | undefined> {
