@@ -18,12 +18,4 @@ export default defineConfig({
 			theme: 'monokai',
 		},
 	},
-	/**
-	 * @todo Check to make sure Cloudflare Pages Functions supports node:crypto
-	 */
-	vite: {
-		ssr: {
-			external: ['node:crypto'],
-		},
-	},
 });
