@@ -1,5 +1,5 @@
 name = "iit-journey"
-compatibility_flags = ["nodejs_compat"]
+compatibility_flags = ["nodejs_compat_v2"]
 
 [[d1_databases]]
 binding = "DB"                                       # i.e. available in your Worker on env.DB

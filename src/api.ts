@@ -2,6 +2,15 @@ import type { D1Database } from '@cloudflare/workers-types';
 import { hash } from './utils.js';
 import { randomBytes } from 'node:crypto';
 
+function randomHex(length: number): string {
+	return randomBytes(length).toString('hex');
+	/*let bytes = '';
+	for (let i = 0; i < length; i++) {
+		bytes += Math.round(Math.random() * 16).toString(16);
+	}
+	return bytes;*/
+}
+
 let db: D1Database;
 
 export function setDB(value: D1Database) {
@@ -359,7 +368,7 @@ export async function deleteAccount(id: string, reason?: string): Promise<FullAc
 }
 
 export async function login(id: string): Promise<string> {
-	const token = randomBytes(32).toString('hex');
+	const token = randomHex(32);
 	await getDB().prepare('update accounts set token=? where id=?').bind(token, id).first();
 	return token;
 }
@@ -376,7 +385,7 @@ export async function createAccount(name: string, email: string, rawPassword: st
 		throw new ReferenceError('User with email already exists');
 	}
 
-	const id = randomBytes(16).toString('hex');
+	const id = randomHex(16);
 	const password = hash(rawPassword);
 	const date = new Date(Date.now());
 
