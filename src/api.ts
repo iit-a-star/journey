@@ -67,7 +67,7 @@ export interface AccountResult {
 	created: string;
 	is_disabled: boolean;
 	token?: string;
-	session?: string;
+	settings: string;
 }
 
 /**
@@ -77,8 +77,10 @@ export interface AccountResult {
 export interface FullAccountResult extends AccountResult {
 	email: string;
 	token: string;
-	session: string;
+	settings: string;
 }
+
+export interface AccountSettings {}
 
 /**
  * Represents an account
@@ -125,16 +127,16 @@ export interface Account {
 	token?: string;
 
 	/**
-	 * The session token of the account
-	 */
-	session?: string;
-
-	/**
 	 * The account's password hash.
 	 *
 	 * This is ***never*** sent by the server, it is only here for code convience when updating the password.
 	 */
 	password?: string;
+
+	/**
+	 * Stored as JSON
+	 */
+	settings: AccountSettings;
 }
 
 /**
@@ -143,7 +145,6 @@ export interface Account {
 export interface FullAccount extends Account {
 	email: string;
 	token: string;
-	session: string;
 	password?: string;
 }
 
@@ -190,6 +191,7 @@ export function stripAccountInfo(account: Account, access: Access = 'public'): A
 		lastchange: account.lastchange,
 		created: account.created,
 		is_disabled: account.is_disabled,
+		settings: account.settings,
 	};
 	if (access == 'public') {
 		return info;
@@ -197,7 +199,6 @@ export function stripAccountInfo(account: Account, access: Access = 'public'): A
 	Object.assign(info, {
 		email: account.email,
 		token: account.token,
-		session: account.session,
 	});
 	if (access == 'protected' || access == 'private') {
 		return info;
@@ -233,7 +234,6 @@ export function checkAccountAttribute<K extends keyof FullAccount>(key: K, value
 			}
 			break;
 		case 'token':
-		case 'session':
 			if (_value.length != 64) throw new Error('Invalid token or session');
 			if (!/^[0-9a-f]+$/.test(_value)) throw new Error('Invalid token or session');
 			break;
@@ -409,6 +409,7 @@ export async function createAccount(name: string, email: string, rawPassword: st
 		type: 0,
 		created: date,
 		lastchange: date,
+		settings: {},
 	};
 }
 
