@@ -372,7 +372,7 @@ export async function logout(id: string, reason?: string): Promise<boolean> {
 	return (await getDB().prepare('update accounts set token="" where id=?').bind(id).first())!;
 }
 
-export async function createAccount(name: string, email: string, rawPassword: string): Promise<Account> {
+export async function createAccount(email: string, name: string, rawPassword: string): Promise<Account> {
 	checkAccountAttribute('email', email);
 	checkAccountAttribute('password', rawPassword);
 
@@ -388,7 +388,7 @@ export async function createAccount(name: string, email: string, rawPassword: st
 		throw new ReferenceError('User with id already exists');
 	}
 
-	await getDB().prepare('insert into accounts (id,username,email,password,type) values (?,?,?,?,0)').bind(id, name, email, password).all();
+	await getDB().prepare('insert into accounts (id,name,email,password,type) values (?,?,?,?,0)').bind(id, name, email, password).all();
 
 	await sendMailToUser(
 		{ name, email },
