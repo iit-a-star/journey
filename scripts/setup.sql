@@ -10,7 +10,7 @@ create table accounts (
 	created timestamp not null default CURRENT_TIMESTAMP,
 	lastchange timestamp not null default CURRENT_TIMESTAMP,
 	token tinytext not null default '',
-	session tinytext not null default ''
+	settings text not null default '{}',
 );
 
 drop table if exists transactions;
@@ -21,6 +21,6 @@ create table transactions (
 	to tinytext not null,
 	timestamp timestamp not null default CURRENT_TIMESTAMP,
 	amount number not null,
-	metadata text not null,
+	metadata text not null default '{}',
 	memo text not null default 0,
 );
