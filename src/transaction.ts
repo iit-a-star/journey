@@ -1,3 +1,7 @@
+export interface TransactionMetadata {
+	catagory: string;
+}
+
 export interface Transaction {
 	/**
 	 * The transaction's ID
@@ -23,6 +27,12 @@ export interface Transaction {
 	 * Which account ID the transaction is from
 	 */
 	readonly amount: number;
+
+	/**
+	 * Metadata about the transaction.
+	 * Stored as JSON.
+	 */
+	readonly metadata: TransactionMetadata;
 
 	/**
 	 * Optional comment on the transaction
