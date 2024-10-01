@@ -3,7 +3,7 @@ import Main from '../layouts/Main.astro';
 import { logout, setDB } from '../api';
 import { currentUser } from '../utils';
 
-setDB(Astro.locals.runtime?.DB);
+setDB(Astro.locals.runtime?.env?.DB);
 
 const account = await currentUser(Astro.cookies);
 

@@ -10,7 +10,7 @@ interface Props {
 	account?: Account;
 }
 
-setDB(Astro.locals.runtime?.DB);
+setDB(Astro.locals.runtime?.env?.DB);
 
 const { title, center, account = await currentUser(Astro.cookies) } = Astro.props;
 ---

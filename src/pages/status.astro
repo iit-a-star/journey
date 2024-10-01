@@ -3,5 +3,5 @@ import Main from '../layouts/Main.astro';
 ---
 
 <Main center title="Status">
-	<p>Database is working: {Astro.locals.runtime?.DB ? 'Yes' : 'No'}</p>
+	<p>Database is working: {Astro.locals.runtime?.env?.DB ? 'Yes' : 'No'}</p>
 </Main>

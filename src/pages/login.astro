@@ -5,7 +5,7 @@ import { getAccount, isValidAccountAttribute, login, setDB } from '../api';
 
 let err: Error | undefined;
 if (Astro.request.method == 'POST') {
-	setDB(Astro.locals.runtime?.DB);
+	setDB(Astro.locals.runtime?.env?.DB);
 
 	try {
 		const body = await parseBody<{ email: string; password: string }>(Astro.request);
