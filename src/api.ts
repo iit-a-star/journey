@@ -31,7 +31,7 @@ type KeyValue<T> = {
 	[K in keyof T]: [K, T[K]];
 }[keyof T];
 
-export const uniqueAccountAttributes = ['id', 'username', 'email', 'token', 'session'];
+export const uniqueAccountAttributes = ['id', 'name', 'email', 'token', 'session'];
 
 export const accountAttributes = [...uniqueAccountAttributes, 'type', 'lastchange', 'created', 'is_disabled'];
 
@@ -102,7 +102,7 @@ export interface Account {
 	type: AccountType;
 
 	/**
-	 * The last time the account's username was changed
+	 * The last time the account's name was changed
 	 */
 	lastchange: Date;
 
@@ -143,7 +143,7 @@ export interface FullAccount extends Account {
 	password?: string;
 }
 
-export type UniqueAccountKey = 'id' | 'email' | 'username' | 'token' | 'session';
+export type UniqueAccountKey = 'id' | 'email' | 'name' | 'token' | 'session';
 
 /**
  * The roles of account types
@@ -304,13 +304,9 @@ export async function setAccountAttribute(id: string, attr: string, value: strin
 	}
 	const date = new Date(Date.now());
 	switch (attr) {
-		case 'username':
-			await sendMailToUser(
-				user,
-				'Username changed',
-				'Your username has been changed. If this was not you, you should change your password and contact support@blankstorm.net.'
-			);
-			await getDB().prepare('update accounts set lastchange=?,username=? where id=?').bind(date, value, id).all();
+		case 'name':
+			await sendMailToUser(user, 'Name changed', 'Your name has been changed. If this was not you, you should change your password and contact support@blankstorm.net.');
+			await getDB().prepare('update accounts set lastchange=?,name=? where id=?').bind(date, value, id).all();
 			break;
 		case 'password':
 			await sendMailToUser(

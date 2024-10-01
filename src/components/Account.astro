@@ -66,9 +66,9 @@ const id = Math.random().toString(36).slice(2);
 	{
 		editable && Astro.url.searchParams.has('edit') && (
 			<div id="edit-container">
-				{Astro.url.searchParams.get('edit') == 'username' && (
+				{Astro.url.searchParams.get('edit') == 'name' && (
 					<>
-						<input name="username" placeholder="New username" autocomplete="on" />
+						<input name="name" placeholder="New Name" autocomplete="on" />
 						<br />
 					</>
 				)}
@@ -161,7 +161,7 @@ const id = Math.random().toString(36).slice(2);
 						<td>{account.created.toString().slice(0, 15)}</td>
 					</tr>
 					<tr>
-						<td>Username last changed</td>
+						<td>Name last changed</td>
 						<td>{account.lastchange.toString().slice(0, 15)}</td>
 					</tr>
 					{viewer?.type! > 0 && (
@@ -174,12 +174,6 @@ const id = Math.random().toString(36).slice(2);
 						<tr>
 							<td>Logged in</td>
 							<td>{account.token ? 'Yes' : 'No'}</td>
-						</tr>
-					)}
-					{viewer?.type! > 0 && (
-						<tr>
-							<td>Active session</td>
-							<td>{account.session ? 'Yes' : 'No'}</td>
 						</tr>
 					)}
 				</table>
