@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
+import { gitCommitHash } from 'utilium/fs.js';
 
 export default defineConfig({
 	output: 'server',
@@ -18,12 +19,13 @@ export default defineConfig({
 			theme: 'monokai',
 		},
 	},
-	/**
-	 * @todo Check to make sure Cloudflare Pages Functions supports node:crypto
-	 */
+
 	vite: {
 		ssr: {
 			external: ['node:crypto'],
+		},
+		define: {
+			$revision: JSON.stringify(gitCommitHash()),
 		},
 	},
 });

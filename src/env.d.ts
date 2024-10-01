@@ -5,6 +5,8 @@
 import type { D1Database } from '@cloudflare/workers-types';
 import type { Runtime } from '@astrojs/cloudflare';
 
+declare const $revision: string;
+
 type __ENV = {
 	DB: D1Database;
 };
