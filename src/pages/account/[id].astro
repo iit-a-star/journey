@@ -1,11 +1,13 @@
 ---
 import Main from '../../layouts/Main.astro';
 import AccountView from '../../components/Account.astro';
+import { Account, getAccount, AccountType } from '../../api';
+import { currentUser } from '../../utils';
 
 const viewer = await currentUser(Astro.cookies);
-let account: Account, error: string | Error;
+let account: Account | undefined, error: string | Error;
 try {
-	account = Astro.params.id ? await getAccount(Astro.params.id, viewer?.type > AccountType.ACCOUNT ? Access.PROTECTED : Access.PUBLIC) : viewer;
+	account = Astro.params.id ? await getAccount(Astro.params.id, (viewer?.type ?? 0) > AccountType.ACCOUNT ? 'protected' : 'public') : viewer;
 } catch (e) {
 	error = e;
 }

@@ -386,12 +386,6 @@ export async function createAccount(email: string, name: string, rawPassword: st
 
 	await getDB().prepare('insert into accounts (id,name,email,password,type) values (?,?,?,?,0)').bind(id, name, email, password).all();
 
-	await sendMailToUser(
-		{ name, email },
-		'Welcome to Blankstorm',
-		`Thank you for joining Blankstorm! The game is still in development, so not all the features are completly finished.`
-	);
-
 	return {
 		id,
 		is_disabled: false,
@@ -411,7 +405,7 @@ export async function sendMail(to: string, subject: string, contents: string) {
 			Authorization: 'Bearer ' + process.env.sendgrid_api_key,
 		},
 		body: JSON.stringify({
-			from: 'Blankstorm <no-reply@blankstorm.net>',
+			from: 'Journey <no-reply@blankstorm.net>',
 			to,
 			subject,
 			html: '<p style="font-family:sans-serif">' + contents.replaceAll('\n', '<br>') + '</p>',
