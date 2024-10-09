@@ -1,7 +1,7 @@
 ---
 import Main from '../layouts/Main.astro';
 import { checkParams, hash, parseBody } from '../utils';
-import { getAccount, isValidAccountAttribute, login, setDB } from '../api';
+import { getProfile, isValidProfileAttribute, login, setDB } from '../api';
 
 let err: Error | undefined;
 if (Astro.request.method == 'POST') {
@@ -9,25 +9,25 @@ if (Astro.request.method == 'POST') {
 
 	try {
 		const body = await parseBody<{ email: string; password: string }>(Astro.request);
-		if (!isValidAccountAttribute('email', body.email)) throw 'You must enter a valid email.';
+		if (!isValidProfileAttribute('email', body.email)) throw 'You must enter a valid email.';
 
 		checkParams(body, 'email', 'password');
 
-		const account = await getAccount('email', body.email);
+		const profile = await getProfile('email', body.email);
 
-		if (!account) {
-			throw 'Account does not exist';
+		if (!profile) {
+			throw 'Profile does not exist';
 		}
 
-		if (account.is_disabled) {
-			throw 'Account is disabled';
+		if (profile.is_disabled) {
+			throw 'Profile is disabled';
 		}
 
-		if (account.password != hash(body.password)) {
+		if (profile.password != hash(body.password)) {
 			throw 'Incorrect password';
 		}
 
-		const token = await login(account.id);
+		const token = await login(profile.id);
 		Astro.cookies.set('token', token, { expires: new Date(Date.now() + 3600_000 * 24 * 28) });
 		return Astro.redirect('/');
 	} catch (e) {

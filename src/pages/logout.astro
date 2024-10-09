@@ -5,15 +5,15 @@ import { currentUser } from '../utils';
 
 setDB(Astro.locals.runtime?.env?.DB);
 
-const account = await currentUser(Astro.cookies);
+const profile = await currentUser(Astro.cookies);
 
-if (account) {
-	await logout(account.id);
+if (profile) {
+	await logout(profile.id);
 	return Astro.redirect('/');
 }
 ---
 
 <Main title="Logout" center>
 	<br /><br />
-	{account ? 'Successfully signed you out' : 'You must be signed in to do that!'}
+	{profile ? 'Successfully signed you out' : 'You must be signed in to do that!'}
 </Main>

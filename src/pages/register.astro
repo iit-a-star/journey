@@ -1,6 +1,6 @@
 ---
 import Main from '../layouts/Main.astro';
-import { createAccount, login, setDB } from '../api';
+import { createProfile, login, setDB } from '../api';
 import { parseBody } from '../utils';
 
 let error;
@@ -11,9 +11,9 @@ if (Astro.request.method == 'POST') {
 	try {
 		const body = await parseBody<{ name: string; email: string; password: string }>(Astro.request);
 
-		const account = await createAccount(body.email, body.name, body.password);
+		const profile = await createProfile(body.email, body.name, body.password);
 
-		const token = await login(account.id);
+		const token = await login(profile.id);
 		Astro.cookies.set('token', token, { expires: new Date(Date.now() + 3600_000 * 24 * 28) });
 		return Astro.redirect('/');
 	} catch (err: any) {

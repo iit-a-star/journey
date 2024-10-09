@@ -1,19 +1,19 @@
 import type { AstroCookies, AstroGlobal } from 'astro';
 import { createHash } from 'node:crypto';
-import type { AccountType, Account } from './api.js';
-import { getAccount } from './api.js';
+import type { ProfileType, Profile } from './api.js';
+import { getProfile } from './api.js';
 
 export function hash(text: string): string {
 	return createHash('sha256').update(text).digest('hex');
 }
 
-export async function currentUser(cookies: AstroCookies): Promise<Account | undefined> {
+export async function currentUser(cookies: AstroCookies): Promise<Profile | undefined> {
 	if (!cookies.has('token')) {
 		return;
 	}
 	const token = cookies.get('token')?.value;
 	try {
-		return await getAccount('token', token || '');
+		return await getProfile('token', token || '');
 	} catch (e) {
 		return;
 	}
@@ -43,18 +43,18 @@ export function checkParams<B extends Record<string, unknown>>(body: B, ...param
 	}
 }
 
-export async function checkAdminAuth(astro: Readonly<AstroGlobal>, minType?: AccountType): Promise<Account | Response> {
-	const account = await currentUser(astro.cookies);
+export async function checkAdminAuth(astro: Readonly<AstroGlobal>, minType?: ProfileType): Promise<Profile | Response> {
+	const profile = await currentUser(astro.cookies);
 
 	minType ||= 1; // to prevent 0 from being passed
 
-	if (!account) {
+	if (!profile) {
 		return astro.redirect('/login');
 	}
 
-	if (account.type < minType) {
+	if (profile.type < minType) {
 		astro.response.status = 403;
 	}
 
-	return account;
+	return profile;
 }

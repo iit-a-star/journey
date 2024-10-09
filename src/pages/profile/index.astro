@@ -1,0 +1,11 @@
+---
+import Main from '../../layouts/Main.astro';
+import ProfileView from '../../components/Profile.astro';
+import { currentUser } from '../../utils';
+
+const profile = await currentUser(Astro.cookies);
+---
+
+<Main title="Profile" center {profile}>
+	<ProfileView {profile} viewer={profile} />
+</Main>

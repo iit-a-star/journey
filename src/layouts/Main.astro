@@ -1,5 +1,5 @@
 ---
-import { Account, setDB } from '../api';
+import { Profile, setDB } from '../api';
 import '../styles/styles.css';
 import '../styles/website.css';
 import { currentUser } from '../utils';
@@ -7,12 +7,12 @@ import { currentUser } from '../utils';
 interface Props {
 	title: string;
 	center?: boolean;
-	account?: Account;
+	profile?: Profile;
 }
 
 setDB(Astro.locals.runtime?.env?.DB);
 
-const { title, center, account = await currentUser(Astro.cookies) } = Astro.props;
+const { title, center, profile = await currentUser(Astro.cookies) } = Astro.props;
 ---
 
 <!doctype html>
@@ -37,15 +37,15 @@ const { title, center, account = await currentUser(Astro.cookies) } = Astro.prop
 	</head>
 	<body>
 		<nav>
-			<a id="account-link" class="sub-menu" href={account ? '/account' : '/login'}>{account ? 'Logged in as ' + account.name : 'Login'}</a>
+			<a id="profile-link" class="sub-menu" href={profile ? '/profile' : '/login'}>{profile ? 'Logged in as ' + profile.name : 'Login'}</a>
 			{
-				account && (
+				profile && (
 					<div class="sub-menu" style="position:fixed;right:1px;top:50px">
 						<>
-							<a href="/account">Account</a>
+							<a href="/profile">Profile</a>
 							<br />
 						</>
-						{account?.type! > 0 && (
+						{profile?.type! > 0 && (
 							<>
 								<a href="/admin">Admin</a>
 								<br />

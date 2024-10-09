@@ -24,7 +24,7 @@ export interface Transaction {
 	readonly timestamp: number;
 
 	/**
-	 * Which account ID the transaction is from
+	 * How much the transaction is for
 	 */
 	readonly amount: number;
 

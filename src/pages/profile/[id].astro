@@ -1,0 +1,26 @@
+---
+import Main from '../../layouts/Main.astro';
+import ProfileView from '../../components/Profile.astro';
+import { Profile, getProfile, ProfileType } from '../../api';
+import { currentUser } from '../../utils';
+
+const viewer = await currentUser(Astro.cookies);
+let profile: Profile | undefined, error: string | Error | undefined;
+try {
+	profile = Astro.params.id ? await getProfile(Astro.params.id, (viewer?.type ?? 0) > ProfileType.PROFILE ? 'protected' : 'public') : viewer;
+} catch (e) {
+	error = e;
+}
+---
+
+<Main title="Profile" center profile={viewer}>
+	{
+		error ? (
+			<div class="error">
+				<p>{typeof error == 'string' ? error : error.message}</p>
+			</div>
+		) : (
+			<ProfileView {profile} {viewer} />
+		)
+	}
+</Main>

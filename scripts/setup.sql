@@ -1,6 +1,6 @@
-drop table if exists accounts;
+drop table if exists profiles;
 
-create table accounts (
+create table profiles (
 	id tinytext not null,
 	name text not null,
 	is_disabled tinyint not null default 0,

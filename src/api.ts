@@ -31,18 +31,18 @@ type KeyValue<T> = {
 	[K in keyof T]: [K, T[K]];
 }[keyof T];
 
-export const uniqueAccountAttributes = ['id', 'name', 'email', 'token', 'session'];
+export const uniqueProfileAttributes = ['id', 'name', 'email', 'token', 'session'];
 
-export const accountAttributes = [...uniqueAccountAttributes, 'type', 'lastchange', 'created', 'is_disabled'];
+export const profileAttributes = [...uniqueProfileAttributes, 'type', 'lastchange', 'created', 'is_disabled'];
 
 /**
- * The account's level of access and status
+ * The profile's level of access and status
  */
-export enum AccountType {
+export enum ProfileType {
 	/**
-	 * Standard accounts
+	 * Standard profiles
 	 */
-	ACCOUNT = 0,
+	PROFILE = 0,
 
 	DEVELOPER = 1,
 
@@ -50,14 +50,14 @@ export enum AccountType {
 }
 
 /**
- * The result object of a response representing an account
- * @see Account
+ * The result object of a response representing an profile
+ * @see Profile
  */
-export interface AccountResult {
+export interface ProfileResult {
 	id: string;
 	name: string;
 	email: string;
-	type: AccountType;
+	type: ProfileType;
 	lastchange: string;
 	created: string;
 	is_disabled: boolean;
@@ -66,63 +66,63 @@ export interface AccountResult {
 }
 
 /**
- * The result object of a response representing an account with all data
- * @see FullAccount
+ * The result object of a response representing an profile with all data
+ * @see FullProfile
  */
-export interface FullAccountResult extends AccountResult {
+export interface FullProfileResult extends ProfileResult {
 	email: string;
 	token: string;
 	settings: string;
 }
 
-export interface AccountSettings {}
+export interface ProfileSettings {}
 
 /**
- * Represents an account
+ * Represents an profile
  */
-export interface Account {
+export interface Profile {
 	/**
-	 * The ID of the account
+	 * The ID of the profile
 	 */
 	id: string;
 
 	/**
-	 * The name of the individual or entity who owns the account
+	 * The name of the individual or entity who owns the profile
 	 */
 	name: string;
 
 	/**
-	 * The email of the account
+	 * The email of the profile
 	 */
 	email?: string;
 
 	/**
-	 * The type of the account
+	 * The type of the profile
 	 */
-	type: AccountType;
+	type: ProfileType;
 
 	/**
-	 * The last time the account's name was changed
+	 * The last time the profile's name was changed
 	 */
 	lastchange: Date;
 
 	/**
-	 * When the account was created
+	 * When the profile was created
 	 */
 	created: Date;
 
 	/**
-	 * If the account is currently disabled
+	 * If the profile is currently disabled
 	 */
 	is_disabled: boolean;
 
 	/**
-	 * The login token of the account
+	 * The login token of the profile
 	 */
 	token?: string;
 
 	/**
-	 * The account's password hash.
+	 * The profile's password hash.
 	 *
 	 * This is ***never*** sent by the server, it is only here for code convience when updating the password.
 	 */
@@ -131,69 +131,69 @@ export interface Account {
 	/**
 	 * Stored as JSON
 	 */
-	settings: AccountSettings;
+	settings: ProfileSettings;
 }
 
 /**
- * Represents an account with all data (i.e. sensitive information must be included)
+ * Represents an profile with all data (i.e. sensitive information must be included)
  */
-export interface FullAccount extends Account {
+export interface FullProfile extends Profile {
 	email: string;
 	token: string;
 	password?: string;
 }
 
-export type UniqueAccountKey = 'id' | 'email' | 'name' | 'token' | 'session';
+export type UniqueProfileKey = 'id' | 'email' | 'name' | 'token' | 'session';
 
 /**
- * The roles of account types
+ * The roles of profile types
  */
-export const accountRoles: { [key in AccountType]: string } & string[] = ['User', 'Moderator', 'Developer', 'Administrator', 'Owner'];
+export const profileRoles: { [key in ProfileType]: string } & string[] = ['User', 'Moderator', 'Developer', 'Administrator', 'Owner'];
 
 /**
- * Gets a string describing the role of the account type
+ * Gets a string describing the role of the profile type
  * @param type the acccount type
  * @param short whether to use the short form or not
  * @returns the role
  */
-export function getAccountRole(type: AccountType, short?: boolean): string {
-	if (typeof accountRoles[type] != 'string') {
+export function getProfileRole(type: ProfileType, short?: boolean): string {
+	if (typeof profileRoles[type] != 'string') {
 		return 'Unknown' + (short ? '' : ` (${type})`);
 	}
 	if (!short) {
-		return accountRoles[type];
+		return profileRoles[type];
 	}
 	switch (type) {
-		case AccountType.DEVELOPER:
+		case ProfileType.DEVELOPER:
 			return 'Dev';
-		case AccountType.ADMIN:
+		case ProfileType.ADMIN:
 			return 'Admin';
 		default:
-			return accountRoles[type];
+			return profileRoles[type];
 	}
 }
 
 /**
- * Strips private information (e.g. email, password hash, etc.) from an account
- * @param account the account to strip info from
+ * Strips private information (e.g. email, password hash, etc.) from an profile
+ * @param profile the profile to strip info from
  * @returns a new object without the stripped info
  */
-export function stripAccountInfo(account: Account, access: Access = 'public'): Account {
+export function stripProfileInfo(profile: Profile, access: Access = 'public'): Profile {
 	const info = {
-		id: account.id,
-		name: account.name,
-		type: account.type,
-		lastchange: account.lastchange,
-		created: account.created,
-		is_disabled: account.is_disabled,
-		settings: account.settings,
+		id: profile.id,
+		name: profile.name,
+		type: profile.type,
+		lastchange: profile.lastchange,
+		created: profile.created,
+		is_disabled: profile.is_disabled,
+		settings: profile.settings,
 	};
 	if (access == 'public') {
 		return info;
 	}
 	Object.assign(info, {
-		email: account.email,
-		token: account.token,
+		email: profile.email,
+		token: profile.token,
 	});
 	if (access == 'protected' || access == 'private') {
 		return info;
@@ -208,16 +208,16 @@ export function stripAccountInfo(account: Account, access: Access = 'public'): A
  * @param key The attribute to check
  * @param value The value
  */
-export function checkAccountAttribute<K extends keyof FullAccount>(key: K, value: FullAccount[K]): void {
-	const [_key, _value] = [key, value] as Exclude<KeyValue<FullAccount>, undefined>;
+export function checkProfileAttribute<K extends keyof FullProfile>(key: K, value: FullProfile[K]): void {
+	const [_key, _value] = [key, value] as Exclude<KeyValue<FullProfile>, undefined>;
 	switch (_key) {
 		case 'id':
 			if (_value.length != 32) throw new Error('Invalid ID length');
 			if (!/^[0-9a-f]+$/.test(_value)) throw new Error('Invalid ID');
 			break;
 		case 'type':
-			if (typeof _value != 'number') throw new TypeError('Account type is not a number');
-			if (_value < AccountType.ACCOUNT || _value > AccountType.ADMIN) throw new RangeError('Account type is not valid');
+			if (typeof _value != 'number') throw new TypeError('Profile type is not a number');
+			if (_value < ProfileType.PROFILE || _value > ProfileType.ADMIN) throw new RangeError('Profile type is not valid');
 			break;
 		case 'email':
 			if (!/^[\w.-]+@[\w-]+(\.\w{2,})+$/.test(_value)) throw new Error('Invalid email');
@@ -238,7 +238,7 @@ export function checkAccountAttribute<K extends keyof FullAccount>(key: K, value
 		case 'password':
 			break;
 		default:
-			throw new TypeError(`"${key}" is not an account attribute`);
+			throw new TypeError(`"${key}" is not an profile attribute`);
 	}
 }
 
@@ -248,57 +248,57 @@ export function checkAccountAttribute<K extends keyof FullAccount>(key: K, value
  * @param value The value
  * @returns whether the value is valid
  */
-export function isValidAccountAttribute<K extends keyof FullAccount>(key: K, value: FullAccount[K]): boolean {
+export function isValidProfileAttribute<K extends keyof FullProfile>(key: K, value: FullProfile[K]): boolean {
 	try {
-		checkAccountAttribute(key, value);
+		checkProfileAttribute(key, value);
 		return true;
 	} catch (e) {
 		return false;
 	}
 }
 
-export async function getAccountNum(): Promise<number> {
-	return (await getDB().prepare('select count(1) as num from accounts').first<number>('num'))!;
+export async function getProfileNum(): Promise<number> {
+	return (await getDB().prepare('select count(1) as num from profiles').first<number>('num'))!;
 }
 
-export async function getAccount(attr: string, value: string): Promise<FullAccount> {
-	const result = await getAccounts(attr, value, 0, 1);
+export async function getProfile(attr: string, value: string): Promise<FullProfile> {
+	const result = await getProfiles(attr, value, 0, 1);
 	return result[0];
 }
 
-export async function getAccounts(attr: string, value: string, offset = 0, limit = 1000): Promise<FullAccount[]> {
+export async function getProfiles(attr: string, value: string, offset = 0, limit = 1000): Promise<FullProfile[]> {
 	if (!value) {
 		return [];
 	}
-	const { results } = await getDB().prepare(`select * from accounts where ${attr}=? limit ?,?`).bind(value, offset, limit).all<FullAccount>();
+	const { results } = await getDB().prepare(`select * from profiles where ${attr}=? limit ?,?`).bind(value, offset, limit).all<FullProfile>();
 	for (const result of results) {
 		result.is_disabled = !!result.is_disabled;
 	}
 	return results;
 }
 
-export async function getAllAccounts(offset = 0, limit = 1000): Promise<FullAccount[]> {
-	const { results } = await getDB().prepare('select * from accounts limit ?,?').bind(offset, limit).all<FullAccount>();
+export async function getAllProfiles(offset = 0, limit = 1000): Promise<FullProfile[]> {
+	const { results } = await getDB().prepare('select * from profiles limit ?,?').bind(offset, limit).all<FullProfile>();
 	for (const result of results) {
 		result.is_disabled = !!result.is_disabled;
 	}
 	return results;
 }
 
-export async function getAllAccountsWithMinType(type: AccountType = 2, offset = 0, limit = 1000): Promise<FullAccount[]> {
-	const { results } = await getDB().prepare('select * from accounts where type >= ? limit ?,?').bind(type, offset, limit).all<FullAccount>();
+export async function getAllProfilesWithMinType(type: ProfileType = 2, offset = 0, limit = 1000): Promise<FullProfile[]> {
+	const { results } = await getDB().prepare('select * from profiles where type >= ? limit ?,?').bind(type, offset, limit).all<FullProfile>();
 	for (const result of results) {
 		result.is_disabled = !!result.is_disabled;
 	}
 	return results;
 }
 
-export async function setAccountAttribute(id: string, attr: string, value: string, reason?: string): Promise<void> {
-	if (!isValidAccountAttribute(attr as keyof FullAccount, value)) {
+export async function setProfileAttribute(id: string, attr: string, value: string, reason?: string): Promise<void> {
+	if (!isValidProfileAttribute(attr as keyof FullProfile, value)) {
 		throw 'Invalid key or value';
 	}
 
-	const user = await getAccount('id', id);
+	const user = await getProfile('id', id);
 	if (!user) {
 		return;
 	}
@@ -306,7 +306,7 @@ export async function setAccountAttribute(id: string, attr: string, value: strin
 	switch (attr) {
 		case 'name':
 			await sendMailToUser(user, 'Name changed', 'Your name has been changed. If this was not you, you should change your password and contact support@blankstorm.net.');
-			await getDB().prepare('update accounts set lastchange=?,name=? where id=?').bind(date, value, id).all();
+			await getDB().prepare('update profiles set lastchange=?,name=? where id=?').bind(date, value, id).all();
 			break;
 		case 'password':
 			await sendMailToUser(
@@ -314,13 +314,13 @@ export async function setAccountAttribute(id: string, attr: string, value: strin
 				'Password changed',
 				'Your password has been changed. If this was not you, you should change your password and contact support@blankstorm.net.'
 			);
-			await getDB().prepare('update accounts set password=? where id=?').bind(hash(value), id).run();
+			await getDB().prepare('update profiles set password=? where id=?').bind(hash(value), id).run();
 			break;
 		case 'disabled':
 			await sendMailToUser(
 				user,
-				'Account ' + (value ? 'disabled' : 'enabled'),
-				`Your account has been ${value ? 'disabled' : 'enabled'}.\nReason: ${reason || '<em>no reason provided</em>'}`
+				'Profile ' + (value ? 'disabled' : 'enabled'),
+				`Your profile has been ${value ? 'disabled' : 'enabled'}.\nReason: ${reason || '<em>no reason provided</em>'}`
 			);
 			break;
 		case 'email':
@@ -332,47 +332,47 @@ export async function setAccountAttribute(id: string, attr: string, value: strin
 			break;
 	}
 
-	await getDB().prepare(`update accounts set ${attr}=? where id=?`).bind(value, id).run();
+	await getDB().prepare(`update profiles set ${attr}=? where id=?`).bind(value, id).run();
 	return;
 }
 
-export async function accountExists(id: string): Promise<boolean> {
-	const { results } = await getDB().prepare('select count(1) as num from accounts where id=?').bind(id).all<{ num: number }>();
+export async function profileExists(id: string): Promise<boolean> {
+	const { results } = await getDB().prepare('select count(1) as num from profiles where id=?').bind(id).all<{ num: number }>();
 	return !!results[0].num;
 }
 
-export async function deleteAccount(id: string, reason?: string): Promise<FullAccount> {
-	if (!(await accountExists(id))) {
+export async function deleteProfile(id: string, reason?: string): Promise<FullProfile> {
+	if (!(await profileExists(id))) {
 		throw new ReferenceError('User does not exist');
 	}
 
-	const user = await getAccount('id', id);
+	const user = await getProfile('id', id);
 	await sendMailToUser(
 		user,
-		'Account deleted',
-		`Your account has been deleted.
+		'Profile deleted',
+		`Your profile has been deleted.
 		Reason: ${reason || '<em>no reason provided</em>'}
 		If you have any concerns please reach out to support@blankstorm.net.`
 	);
 
-	return (await getDB().prepare('delete from accounts where id=?').bind(id).first())!;
+	return (await getDB().prepare('delete from profiles where id=?').bind(id).first())!;
 }
 
 export async function login(id: string): Promise<string> {
 	const token = randomHex(32);
-	await getDB().prepare('update accounts set token=? where id=?').bind(token, id).first();
+	await getDB().prepare('update profiles set token=? where id=?').bind(token, id).first();
 	return token;
 }
 
 export async function logout(id: string, reason?: string): Promise<boolean> {
-	return (await getDB().prepare('update accounts set token="" where id=?').bind(id).first())!;
+	return (await getDB().prepare('update profiles set token="" where id=?').bind(id).first())!;
 }
 
-export async function createAccount(email: string, name: string, rawPassword: string): Promise<Account> {
-	checkAccountAttribute('email', email);
-	checkAccountAttribute('password', rawPassword);
+export async function createProfile(email: string, name: string, rawPassword: string): Promise<Profile> {
+	checkProfileAttribute('email', email);
+	checkProfileAttribute('password', rawPassword);
 
-	if ((await getAccounts('email', email)).length) {
+	if ((await getProfiles('email', email)).length) {
 		throw new ReferenceError('User with email already exists');
 	}
 
@@ -380,11 +380,11 @@ export async function createAccount(email: string, name: string, rawPassword: st
 	const password = hash(rawPassword);
 	const date = new Date(Date.now());
 
-	if ((await getAccounts('id', id)).length) {
+	if ((await getProfiles('id', id)).length) {
 		throw new ReferenceError('User with id already exists');
 	}
 
-	await getDB().prepare('insert into accounts (id,name,email,password,type) values (?,?,?,?,0)').bind(id, name, email, password).all();
+	await getDB().prepare('insert into profiles (id,name,email,password,type) values (?,?,?,?,0)').bind(id, name, email, password).all();
 
 	return {
 		id,

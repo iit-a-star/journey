@@ -12,7 +12,7 @@ export default defineConfig({
 	}),
 	site: 'https://iit-journey.pages.dev/',
 	redirects: {
-		'/.well-known/change-password': '/account?edit=password',
+		'/.well-known/change-password': '/profile?edit=password',
 	},
 	markdown: {
 		shikiConfig: {
