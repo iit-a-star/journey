@@ -3,6 +3,10 @@ import { setDB } from '../../api';
 import Main from '../../layouts/Main.astro';
 
 setDB(Astro.locals.runtime?.env?.DB);
+
+if (Astro.request.method == 'POST') {
+	// parse body
+}
 ---
 
 <Main title="Open an Account">
