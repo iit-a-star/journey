@@ -1,0 +1,13 @@
+---
+import { Account } from '../api';
+
+interface Props {
+	account?: Account;
+}
+
+let { account } = Astro.props;
+---
+
+<li>
+	<span>{account?.name}</span>
+</li>

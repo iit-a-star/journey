@@ -1,5 +1,3 @@
-drop table if exists profiles;
-
 create table profiles (
 	id tinytext not null,
 	name text not null,
@@ -12,14 +10,16 @@ create table profiles (
 	token tinytext not null default '',
 	settings text not null default '{}'
 );
-
-drop table if exists transactions;
-
+create table accounts (
+	id tinytext not null,
+	profile tinytext not null,
+	name tinytext not null
+);
 create table transactions (
 	id tinytext not null,
 	"from" tinytext not null,
 	"to" tinytext not null,
-	timestamp timestamp not null default CURRENT_TIMESTAMP,
+	"timestamp" timestamp not null default CURRENT_TIMESTAMP,
 	amount number not null,
 	metadata text not null default '{}',
 	memo text not null default 0

@@ -1,7 +1,8 @@
 ---
-import { setDB } from '../api';
+import { getProfileAccounts, setDB } from '../api';
 import Main from '../layouts/Main.astro';
 import { currentUser } from '../utils';
+import AccountLI from '../components/AccountLI.astro';
 
 setDB(Astro.locals.runtime?.env?.DB);
 
@@ -10,9 +11,28 @@ const profile = await currentUser(Astro.cookies);
 if (!profile) {
 	return Astro.redirect('/login');
 }
+
+const accounts = await getProfileAccounts(profile.id);
 ---
 
+<style>
+	ul {
+		list-style: none;
+	}
+</style>
 <Main title="Accounts" center>
 	<br /><br />
-	{}
+	{
+		typeof accounts == 'string' ? (
+			accounts
+		) : (
+			<ul>
+				{accounts.map(account => (
+					<AccountLI {account} />
+				))}
+			</ul>
+		)
+	}
+	<br />
+	<a href="/account/open"><button>Open an account</button></a>
 </Main>

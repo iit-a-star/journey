@@ -1,5 +1,5 @@
 ---
-import { FullProfile, getProfileRole, stripProfileInfo, type Profile } from '../api';
+import { getProfileRole, stripProfileInfo, type Profile } from '../api';
 
 interface Props {
 	profile?: Profile;
@@ -8,7 +8,6 @@ interface Props {
 
 let { profile, viewer } = Astro.props;
 const editable = profile === viewer || viewer?.type! > Math.max(profile?.type!, 1);
-const id = Math.random().toString(36).slice(2);
 ---
 
 {
@@ -202,86 +201,4 @@ const id = Math.random().toString(36).slice(2);
 		)
 	}
 	{editable && (profile?.is_disabled ? viewer?.type! > profile?.type! && <button id="#enable">Enable</button> : <button id="#disable">Disable</button>)}
-	<!--<script>
-		import { deleteProfile, logout, auth, update, type Profile } from '../api';
-
-		const profile: Profile = JSON.parse(decodeURIComponent(document.querySelector('#profile')?.getAttribute('data-profile')!));
-
-		const searchParams = new URLSearchParams(location.search);
-
-		function getCookie(name: string) {
-			name += '=';
-			const cookies = decodeURIComponent(document.cookie).split(';');
-			for (const cookie of cookies) {
-				const trimmed = cookie.trim();
-				if (trimmed.startsWith(name)) {
-					return trimmed.substring(name.length);
-				}
-			}
-			return null;
-		}
-
-		function handleError(message) {
-			const el = document.createElement('div');
-			el.classList.add('error');
-			el.textContent = message;
-			document.querySelector('#error-container')?.append(el);
-		}
-
-		auth(getCookie('token')!);
-
-		const deleteButton = document.querySelector<HTMLButtonElement>('#delete'),
-			deleteDialog = document.querySelector<HTMLDialogElement>('#delete-dialog')!;
-		if (deleteButton) {
-			deleteButton.onclick = deleteDialog.showModal.bind(deleteDialog);
-		}
-
-		document.querySelector<HTMLButtonElement>('#delete-dialog .no')!.onclick = () => {
-			deleteDialog.close();
-		};
-
-		document.querySelector<HTMLButtonElement>('#delete-dialog .yes')!.onclick = () => {
-			deleteProfile(profile.id, 'User deleted profile')
-				.then(() => (location.href = '/'))
-				.catch(handleError);
-		};
-
-		const logoutButton = document.querySelector<HTMLButtonElement>('#logout'),
-			logoutDialog = document.querySelector<HTMLDialogElement>('#logout-dialog')!;
-		if (logoutButton) {
-			logoutButton.onclick = logoutDialog.showModal.bind(logoutDialog);
-		}
-
-		document.querySelector<HTMLButtonElement>('#logout-dialog .no')!.onclick = () => {
-			logoutDialog.close();
-		};
-
-		document.querySelector<HTMLButtonElement>('#logout-dialog .yes')!.onclick = () => {
-			logout(profile.id)
-				.then(() => (location.href = '/'))
-				.catch(handleError);
-		};
-
-		const change = document.querySelector<HTMLElement>('#change');
-		if (change) {
-			change.onclick = e => {
-				const key = searchParams.get('edit') as keyof Profile | 'password';
-				if (key == 'password') {
-					const newPassword = document.querySelector<HTMLInputElement>('input[name=new_password]')?.value;
-					if (newPassword != document.querySelector<HTMLInputElement>('input[name=confirm_password]')?.value) {
-						return;
-					}
-
-					update(profile.id, 'password', newPassword)
-						.then(() => location.reload())
-						.catch(handleError);
-					return;
-				}
-				const value = document.querySelector<HTMLInputElement>(`[name=${key}]`)!.value;
-				update(profile.id, key, value)
-					.then(() => location.reload())
-					.catch(handleError);
-			};
-		}
-	</script> -->
 </div>
