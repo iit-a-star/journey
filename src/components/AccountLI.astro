@@ -2,12 +2,30 @@
 import { Account } from '../api';
 
 interface Props {
-	account?: Account;
+	account: Account;
 }
 
-let { account } = Astro.props;
+const {
+	account: { type, name, id },
+} = Astro.props;
 ---
 
+<style>
+	li {
+		display: flex;
+		flex-direction: row;
+		gap: 10em;
+		border-radius: 0.5em;
+		border: 1px solid #ccc;
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+
+	p.savings {
+	}
+</style>
+
 <li>
-	<span>{account?.name}</span>
+	<p class={type}>{type}</p>
+	<p><a href=`/account/${id}`>{name}</a></p>
 </li>

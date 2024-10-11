@@ -1,0 +1,33 @@
+---
+import { Account, getAccount, getProfile, ProfileType, setDB } from '../../api';
+import Main from '../../layouts/Main.astro';
+import { currentUser } from '../../utils';
+
+setDB(Astro.locals.runtime?.env?.DB);
+
+const profile = await currentUser(Astro.cookies);
+
+if (!profile) {
+	return Astro.redirect('/login');
+}
+
+const account = Astro.params.id ? await getAccount(Astro.params.id) : null;
+---
+
+<Main title="Account">
+	{!account && <div class="error">That account doesn't exist</div>}
+	{
+		account && (
+			<div>
+				<p>Account name: {account.name}</p>
+				<p>Account type: {account.type}</p>
+				<p>Account ID: {account.id.slice(0, 10)}...</p>
+				<h4>Transactions</h4>
+				<p>
+					<em>Coming soon.</em>
+				</p>
+				<ul />
+			</div>
+		)
+	}
+</Main>

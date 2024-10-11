@@ -1,17 +1,40 @@
 ---
-import { setDB } from '../../api';
+import { createAccount, isValidAccountType, setDB } from '../../api';
 import Main from '../../layouts/Main.astro';
+import { checkParams, currentUser, parseBody } from '../../utils';
 
 setDB(Astro.locals.runtime?.env?.DB);
 
-if (Astro.request.method == 'POST') {
-	// parse body
+const profile = await currentUser(Astro.cookies);
 
-	return Astro.redirect('/accounts');
+if (!profile) {
+	return Astro.redirect('/login');
+}
+
+let error: string | undefined;
+
+try {
+	if (Astro.request.method == 'POST') {
+		// parse body
+		const body = await parseBody<{ name: string; type: string }>(Astro.request);
+
+		checkParams(body, 'name', 'type');
+
+		if (!isValidAccountType(body.type)) {
+			throw 'Invalid account type';
+		}
+
+		await createAccount(profile?.id, body.name, body.type);
+
+		return Astro.redirect('/accounts');
+	}
+} catch (e) {
+	error = e;
 }
 ---
 
 <Main title="Open an Account">
+	{error && <div class="error">{error}</div>}
 	<form method="post">
 		<h2>Open an account</h2>
 		<br /><br />

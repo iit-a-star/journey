@@ -38,3 +38,7 @@ export async function createAccount(profile: string, name: string, type: Account
 	const id = randomHex(32);
 	await getDB().prepare('insert into accounts (id,profile,name,type) values (?,?,?,?)').bind(id, profile, name, type).run();
 }
+
+export function isValidAccountType(type: string): type is AccountType {
+	return ['savings', 'checking'].includes(type);
+}
