@@ -8,7 +8,7 @@ export function hash(text: string): string {
 }
 
 export function randomHex(length: number): string {
-	return randomBytes(length).toString('hex');
+	return randomBytes(length / 2).toString('hex');
 }
 
 export async function currentUser(cookies: AstroCookies): Promise<Profile | undefined> {
