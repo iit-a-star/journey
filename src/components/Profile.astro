@@ -157,11 +157,11 @@ const editable = profile === viewer || viewer?.type! > Math.max(profile?.type!, 
 					</tr>
 					<tr>
 						<td>Created</td>
-						<td>{profile.created.toString().slice(0, 15)}</td>
+						<td>{profile.created.toLocaleString().slice(0, -3)}</td>
 					</tr>
 					<tr>
 						<td>Name last changed</td>
-						<td>{profile.lastchange.toString().slice(0, 15)}</td>
+						<td>{profile.lastchange.toLocaleString().slice(0, -3)}</td>
 					</tr>
 					{viewer?.type! > 0 && (
 						<tr>
