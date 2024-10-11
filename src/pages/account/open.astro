@@ -6,16 +6,24 @@ setDB(Astro.locals.runtime?.env?.DB);
 
 if (Astro.request.method == 'POST') {
 	// parse body
+
+	return Astro.redirect('/accounts');
 }
 ---
 
 <Main title="Open an Account">
-	<form>
+	<form method="post">
+		<h2>Open an account</h2>
+		<br /><br />
+		<label for="name">Account Nickame</label>
 		<input type="text" name="name" />
+		<br /><br />
+		<label for="type">Account Type</label>
 		<select name="type">
 			<option value="savings">Savings</option>
 			<option value="checking">Checking</option>
 		</select>
+		<br /><br />
 		<button>Open my account</button>
 	</form>
 </Main>
