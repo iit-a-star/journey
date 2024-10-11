@@ -1,0 +1,17 @@
+---
+import { setDB } from '../../api';
+import Main from '../../layouts/Main.astro';
+
+setDB(Astro.locals.runtime?.env?.DB);
+---
+
+<Main title="Open an Account">
+	<form>
+		<input type="text" name="name" />
+		<select name="type">
+			<option value="savings">Savings</option>
+			<option value="checking">Checking</option>
+		</select>
+		<button>Open my account</button>
+	</form>
+</Main>

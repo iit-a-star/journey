@@ -13,7 +13,8 @@ create table profiles (
 create table accounts (
 	id tinytext not null,
 	profile tinytext not null,
-	name tinytext not null
+	name tinytext not null,
+	type tinytext not null
 );
 create table transactions (
 	id tinytext not null,
