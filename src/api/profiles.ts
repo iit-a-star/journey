@@ -329,7 +329,7 @@ export async function deleteProfile(id: string, reason?: string): Promise<FullPr
 }
 
 export async function login(id: string): Promise<string> {
-	const token = randomHex(32);
+	const token = randomHex(64);
 	await getDB().prepare('update profiles set token=? where id=?').bind(token, id).first();
 	return token;
 }
@@ -346,7 +346,7 @@ export async function createProfile(email: string, name: string, rawPassword: st
 		throw new ReferenceError('User with email already exists');
 	}
 
-	const id = randomHex(16);
+	const id = randomHex(32);
 	const password = hash(rawPassword);
 	const date = new Date(Date.now());
 
