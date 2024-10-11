@@ -1,35 +1,5 @@
-import type { D1Database } from '@cloudflare/workers-types';
-import { hash } from './utils.js';
-import { randomBytes } from 'node:crypto';
-
-function randomHex(length: number): string {
-	return randomBytes(length).toString('hex');
-}
-
-let db: D1Database;
-
-export function setDB(value: D1Database) {
-	db = value;
-}
-
-export function getDB(): D1Database {
-	if (!db) {
-		throw 'Could not access database';
-	}
-	return db;
-}
-
-/**
- * Access level for information
- */
-export type Access = 'public' | 'protected' | 'private';
-
-/**
- * { a: b, c: d } -> [a, b] | [c, d]
- */
-type KeyValue<T> = {
-	[K in keyof T]: [K, T[K]];
-}[keyof T];
+import { hash, randomHex } from '../utils.js';
+import { getDB, type Access, type KeyValue } from './common.js';
 
 export const uniqueProfileAttributes = ['id', 'name', 'email', 'token', 'session'];
 
@@ -124,7 +94,7 @@ export interface Profile {
 	/**
 	 * The profile's password hash.
 	 *
-	 * This is ***never*** sent by the server, it is only here for code convience when updating the password.
+	 * This is ***never*** sent by the server, it is only here for code convenience when updating the password.
 	 */
 	password?: string;
 
@@ -152,7 +122,7 @@ export const profileRoles: { [key in ProfileType]: string } & string[] = ['User'
 
 /**
  * Gets a string describing the role of the profile type
- * @param type the acccount type
+ * @param type the profile type
  * @param short whether to use the short form or not
  * @returns the role
  */

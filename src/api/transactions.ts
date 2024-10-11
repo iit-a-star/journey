@@ -1,5 +1,5 @@
 export interface TransactionMetadata {
-	catagory: string;
+	category: string;
 }
 
 export interface Transaction {

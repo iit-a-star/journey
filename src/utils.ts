@@ -1,10 +1,14 @@
 import type { AstroCookies, AstroGlobal } from 'astro';
-import { createHash } from 'node:crypto';
-import type { ProfileType, Profile } from './api.js';
-import { getProfile } from './api.js';
+import { createHash, randomBytes } from 'node:crypto';
+import type { Profile, ProfileType } from './api/profiles.js';
+import { getProfile } from './api/profiles.js';
 
 export function hash(text: string): string {
 	return createHash('sha256').update(text).digest('hex');
+}
+
+export function randomHex(length: number): string {
+	return randomBytes(length).toString('hex');
 }
 
 export async function currentUser(cookies: AstroCookies): Promise<Profile | undefined> {
