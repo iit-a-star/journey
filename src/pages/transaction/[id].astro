@@ -1,0 +1,35 @@
+---
+import { setDB } from '../../api/common';
+import { getTransaction } from '../../api/transactions';
+import Main from '../../layouts/Main.astro';
+import { currentUser } from '../../utils';
+
+setDB(Astro.locals.runtime?.env?.DB);
+
+const profile = await currentUser(Astro.cookies);
+
+if (!profile) {
+	return Astro.redirect('/login');
+}
+
+const tx = Astro.params.id ? await getTransaction(Astro.params.id) : null;
+
+if (tx?.from != profile.id && tx?.to != profile.id) {
+	return Astro.rewrite('/403');
+}
+---
+
+<Main title="View Transaction">
+	{!tx && <div class="error">That account doesn't exist</div>}
+	{
+		tx && (
+			<div>
+				<p>TransactionID: {tx.id}</p>
+				<p>From: {tx.from}</p>
+				<p>To: {tx.to}</p>
+				<p>Amount: ${tx.amount}</p>
+				<p>Time: {new Date(tx.timestamp).toLocaleString()}</p>
+			</div>
+		)
+	}
+</Main>

@@ -1,0 +1,16 @@
+---
+import { setDB } from '../../api/common';
+import { getTransaction } from '../../api/transactions';
+import Main from '../../layouts/Main.astro';
+import { currentUser } from '../../utils';
+
+setDB(Astro.locals.runtime?.env?.DB);
+
+const profile = await currentUser(Astro.cookies);
+
+if (!profile) {
+	return Astro.redirect('/login');
+}
+---
+
+<Main title="New Transaction"> Work In Progress</Main>

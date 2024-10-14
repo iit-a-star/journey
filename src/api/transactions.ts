@@ -1,3 +1,5 @@
+import { getDB } from './common.js';
+
 export interface TransactionMetadata {
 	category: string;
 }
@@ -6,17 +8,17 @@ export interface Transaction {
 	/**
 	 * The transaction's ID
 	 */
-	readonly id: bigint;
+	readonly id: string;
 
 	/**
 	 * Which account ID the transaction is from
 	 */
-	readonly from: bigint;
+	readonly from: string;
 
 	/**
 	 * Which account ID the transaction is to
 	 */
-	readonly to: bigint;
+	readonly to: string;
 
 	/**
 	 * When the transaction happened
@@ -38,4 +40,13 @@ export interface Transaction {
 	 * Optional comment on the transaction
 	 */
 	readonly memo?: string;
+}
+
+export async function getTransactions(account: string): Promise<Transaction[] | null> {
+	const { results } = await getDB().prepare('select * from transactions where "from"=? or "to"=?').bind(account, account).all<Transaction>();
+	return results;
+}
+
+export function getTransaction(id: string): Promise<Transaction | null> {
+	return getDB().prepare('select * from transactions where id=?').bind(id).first();
 }
