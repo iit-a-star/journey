@@ -23,5 +23,5 @@ create table transactions (
 	"timestamp" timestamp not null default CURRENT_TIMESTAMP,
 	amount number not null,
 	metadata text not null default '{}',
-	memo text not null default 0
+	memo text not null default ''
 );

@@ -1,0 +1,39 @@
+---
+import { getAccount, Transaction } from '../api';
+
+interface Props {
+	transaction: Transaction;
+	account?: string;
+}
+
+const { transaction, account } = Astro.props;
+
+const from = (await getAccount(transaction.from))!;
+const to = (await getAccount(transaction.to))!;
+const { amount, timestamp, memo } = transaction;
+
+import '../styles/transaction-li.css';
+---
+
+{
+	account ? (
+		<li>
+			<p class="account">{from.id == account ? <a href={`/account/${to.id}`}>{to.name}</a> : <a href={`/account/${from.id}`}>{from.name}</a>}</p>
+			<p class="amount">
+				{from.id == account ? '-' : '+'} ${transaction.amount}
+			</p>
+			<p class="timestamp">{new Date(timestamp).toLocaleString()}</p>
+		</li>
+	) : (
+		<li>
+			<p class="from">
+				From <a href={`/account/${from.id}`}>{from.name}</a>
+			</p>
+			<p class="to">
+				To <a href={`/account/${to.id}`}>{to.name}</a>
+			</p>
+			<p class="amount">Amount ${transaction.amount}</p>
+			<p class="timestamp">{new Date(timestamp).toLocaleString()}</p>
+		</li>
+	)
+}

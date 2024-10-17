@@ -1,0 +1,38 @@
+li {
+	display: flex;
+	align-items: center;
+	gap: 1em;
+	margin-bottom: 0.5em;
+	border-radius: 0.5em;
+	border: 1px solid #ccc;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+p {
+	white-space: nowrap;
+	margin: 0;
+	padding: 0.25em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+p.from {
+	flex-grow: 1;
+}
+
+p.to {
+	flex-grow: 1;
+}
+
+p.account {
+	flex-grow: 1;
+}
+
+p.amount {
+	flex: 0 0 10em;
+}
+
+p.timestamp {
+	flex: 0 0 15em;
+}
