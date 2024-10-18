@@ -1,4 +1,5 @@
 ---
+import { getProfileAccounts } from '../../api';
 import { setDB } from '../../api/common';
 import { getTransaction } from '../../api/transactions';
 import Main from '../../layouts/Main.astro';
@@ -12,9 +13,14 @@ if (!profile) {
 	return Astro.redirect('/login');
 }
 
+const accounts = await getProfileAccounts(profile.id).catch(() => null);
+if (!accounts) {
+	return Astro.rewrite('/404');
+}
+
 const tx = Astro.params.id ? await getTransaction(Astro.params.id) : null;
 
-if (tx?.from != profile.id && tx?.to != profile.id) {
+if (!accounts.some(({ id }) => tx?.from == id || tx?.to == id)) {
 	return Astro.rewrite('/403');
 }
 ---

@@ -36,3 +36,7 @@ p.amount {
 p.timestamp {
 	flex: 0 0 15em;
 }
+
+p.details {
+	flex: 0 0 4em;
+}

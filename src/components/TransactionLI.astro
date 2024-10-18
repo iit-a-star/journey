@@ -10,7 +10,7 @@ const { transaction, account } = Astro.props;
 
 const from = (await getAccount(transaction.from))!;
 const to = (await getAccount(transaction.to))!;
-const { amount, timestamp, memo } = transaction;
+const { amount, timestamp, memo, id } = transaction;
 
 import '../styles/transaction-li.css';
 ---
@@ -23,6 +23,9 @@ import '../styles/transaction-li.css';
 				{from.id == account ? '-' : '+'} ${transaction.amount}
 			</p>
 			<p class="timestamp">{new Date(timestamp).toLocaleString()}</p>
+			<p class="details">
+				<a href={`/transaction/${id}`}>→</a>
+			</p>
 		</li>
 	) : (
 		<li>

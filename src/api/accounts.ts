@@ -25,9 +25,12 @@ export interface Account {
 	type: AccountType;
 }
 
-export async function getProfileAccounts(id: string): Promise<Account[] | string> {
+export async function getProfileAccounts(id: string): Promise<Account[]> {
 	const { results, success } = await getDB().prepare('select * from accounts where profile=?').bind(id).all<Account>();
-	return success ? results : 'Could not get your accounts';
+	if (!success) {
+		throw 'Could not get your accounts';
+	}
+	return results;
 }
 
 export function getAccount(id: string): Promise<Account | null> {
