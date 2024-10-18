@@ -18,6 +18,10 @@ if (!account) {
 	return Astro.rewrite('/404');
 }
 
+if (account.profile != profile.id) {
+	return Astro.rewrite('/403');
+}
+
 const transactions = account && (await getTransactions(account.id));
 
 const balance = transactions?.reduce((total, tx) => total + (tx.from == account.id ? -1 : 1) * tx.amount, 0);
