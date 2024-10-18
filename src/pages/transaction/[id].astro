@@ -35,6 +35,7 @@ if (!accounts.some(({ id }) => tx?.from == id || tx?.to == id)) {
 				<p>To: {tx.to}</p>
 				<p>Amount: ${tx.amount}</p>
 				<p>Time: {new Date(tx.timestamp).toLocaleString()}</p>
+				<p>Memo: {tx.memo}</p>
 			</div>
 		)
 	}
