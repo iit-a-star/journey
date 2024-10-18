@@ -14,7 +14,13 @@ if (!profile) {
 
 const account = Astro.params.id ? await getAccount(Astro.params.id) : null;
 
+if (!account) {
+	return Astro.rewrite('/404');
+}
+
 const transactions = account && (await getTransactions(account.id));
+
+const balance = transactions?.reduce((total, tx) => total + (tx.from == account.id ? -1 : 1) * tx.amount, 0);
 
 import '../../styles/transaction-li.css';
 ---
@@ -26,32 +32,31 @@ import '../../styles/transaction-li.css';
 	}
 </style>
 <Main title="Account">
-	{!account && <div class="error">That account doesn't exist</div>}
-	{
-		account && (
-			<div>
-				<p>Account name: {account.name}</p>
-				<p>Account type: {account.type}</p>
-				<p>Account ID: {account.id.slice(0, 10)}...</p>
-				<h4>Transactions</h4>
-				{!transactions ? (
-					<p>
-						<em>Couldn't fetch your transactions.</em>
-					</p>
-				) : (
-					<ul>
-						<li class="header">
-							<p class="account">Account</p>
-							<p class="amount">Amount</p>
-							<p class="timestamp">Time</p>
-							<p class="Details">Details</p>
-						</li>
-						{transactions.map(tx => (
-							<TransactionLI transaction={tx} account={account.id} />
-						))}
-					</ul>
-				)}
-			</div>
-		)
-	}
+	<div>
+		<p>Account name: {account.name}</p>
+		<p>Account type: {account.type}</p>
+		<p>Account ID: {account.id}</p>
+		<p>Balance: {typeof balance != 'number' ? 'Unknown' : `${balance >= 0 ? '' : '-'}$${Math.abs(balance)}`}</p>
+
+		<h4>Transactions</h4>
+		{
+			!transactions ? (
+				<p>
+					<em>Couldn't fetch your transactions.</em>
+				</p>
+			) : (
+				<ul>
+					<li class="header">
+						<p class="account">Account</p>
+						<p class="amount">Amount</p>
+						<p class="timestamp">Time</p>
+						<p class="Details">Details</p>
+					</li>
+					{transactions.map(tx => (
+						<TransactionLI transaction={tx} account={account.id} />
+					))}
+				</ul>
+			)
+		}
+	</div>
 </Main>
