@@ -35,8 +35,8 @@ const to = (await getAccount(tx.to))!;
 <Main title="View Transaction">
 	<div>
 		<h4>Transaction {tx.id}</h4>
-		<p>From: {from.name}</p>
-		<p>To: {to.name}</p>
+		<p>From: <a href={`/account/${from.id}`}>{from.name}</a></p>
+		<p>To: <a href={`/account/${to.id}`}>{to.name}</a></p>
 		<p>Amount: ${tx.amount}</p>
 		<p>Time: {new Date(tx.timestamp).toLocaleString()}</p>
 		<p>Memo: {tx.memo}</p>

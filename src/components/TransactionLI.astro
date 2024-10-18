@@ -18,7 +18,7 @@ import '../styles/transaction-li.css';
 {
 	account ? (
 		<li>
-			<p class="account">{from.id == account ? <a href={`/account/${to.id}`}>{to.name}</a> : <a href={`/account/${from.id}`}>{from.name}</a>}</p>
+			<p class="memo">{transaction.memo}</p>
 			<p class="amount">
 				{from.id == account ? '-' : '+'} ${transaction.amount}
 			</p>
