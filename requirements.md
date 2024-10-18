@@ -1,6 +1,4 @@
-# PROJECT DETAILS
-## Project Name:
-### *Journey* with Discover
+# *Journey* with Discover
 
 ## Creators:
 ### Michaelangelo Eldridge, Numa Fatima, Joanne Porter, James Prevett
@@ -22,12 +20,12 @@ Create a budgeting assistant that helps people spend money wisely and caters to 
   2. Functional Design
   3. Screen Design
 
-|In-Scope: | Out-of-Scope: |
-| -------- | ------------- |
-|Screen Development and User Interface Design|Demo Project for demo purposes, not hosted anywhere|
-|Saving user data and preferences in the database|Implementing AI|
-|Implementation of business logic for budgeting assistant|No data validations, only accepting data from the users|
-|Integrational/Functional testing| |
+| In-Scope:                                                | Out-of-Scope:                                           |
+| -------------------------------------------------------- | ------------------------------------------------------- |
+| Screen Development and User Interface Design             | Demo Project for demo purposes, not hosted anywhere     |
+| Saving user data and preferences in the database         | Implementing AI                                         |
+| Implementation of business logic for budgeting assistant | No data validations, only accepting data from the users |
+| Integrational/Functional testing                         |                                                         |
   
 <br />
 
@@ -51,13 +49,13 @@ Create a budgeting assistant that helps people spend money wisely and caters to 
 <br />
 
 ## 4. Nonfunctional Requirements
-|ID|Requirement|
-| --- | --- |
-| | |
-| | |
-| | |
-| | |
-| | |
+| ID  | Requirement |
+| --- | ----------- |
+|     |             |
+|     |             |
+|     |             |
+|     |             |
+|     |             |
 
 <br />
 
