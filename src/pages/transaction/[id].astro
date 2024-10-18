@@ -20,23 +20,22 @@ if (!accounts) {
 
 const tx = Astro.params.id ? await getTransaction(Astro.params.id) : null;
 
+if (!tx) {
+	return Astro.rewrite('/404');
+}
+
 if (!accounts.some(({ id }) => tx?.from == id || tx?.to == id)) {
 	return Astro.rewrite('/403');
 }
 ---
 
 <Main title="View Transaction">
-	{!tx && <div class="error">That account doesn't exist</div>}
-	{
-		tx && (
-			<div>
-				<p>TransactionID: {tx.id}</p>
-				<p>From: {tx.from}</p>
-				<p>To: {tx.to}</p>
-				<p>Amount: ${tx.amount}</p>
-				<p>Time: {new Date(tx.timestamp).toLocaleString()}</p>
-				<p>Memo: {tx.memo}</p>
-			</div>
-		)
-	}
+	<div>
+		<h4>Transaction {tx.id}</h4>
+		<p>From: {tx.from}</p>
+		<p>To: {tx.to}</p>
+		<p>Amount: ${tx.amount}</p>
+		<p>Time: {new Date(tx.timestamp).toLocaleString()}</p>
+		<p>Memo: {tx.memo}</p>
+	</div>
 </Main>
