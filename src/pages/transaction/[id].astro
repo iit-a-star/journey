@@ -1,5 +1,5 @@
 ---
-import { getProfileAccounts } from '../../api';
+import { getAccount, getProfileAccounts } from '../../api';
 import { setDB } from '../../api/common';
 import { getTransaction } from '../../api/transactions';
 import Main from '../../layouts/Main.astro';
@@ -27,13 +27,16 @@ if (!tx) {
 if (!accounts.some(({ id }) => tx?.from == id || tx?.to == id)) {
 	return Astro.rewrite('/403');
 }
+
+const from = (await getAccount(tx.from))!;
+const to = (await getAccount(tx.to))!;
 ---
 
 <Main title="View Transaction">
 	<div>
 		<h4>Transaction {tx.id}</h4>
-		<p>From: {tx.from}</p>
-		<p>To: {tx.to}</p>
+		<p>From: {from.name}</p>
+		<p>To: {to.name}</p>
 		<p>Amount: ${tx.amount}</p>
 		<p>Time: {new Date(tx.timestamp).toLocaleString()}</p>
 		<p>Memo: {tx.memo}</p>
