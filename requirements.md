@@ -4,8 +4,6 @@
 
 ### Michaelangelo Eldridge, Numa Fatima, Joanne Porter, James Prevett
 
-<br />
-
 ## 1. Project Scope
 
 ### Project Objective:
@@ -38,15 +36,11 @@ Create a budgeting assistant that helps people spend money wisely and caters to 
 -   Implementing AI
 -   No data validations, only accepting data from the users
 
-<br />
-
 ## 2. Business Drivers
 
 1. It is a necessity for all users and helping them understand financial literacy.
 2. They can easily understand and use their financial budgeting plans.
 3. Add-on benefit for the customers, bringing a better financial future to all of them.
-
-<br />
 
 ## 3. Functional Requirements
 
@@ -59,13 +53,9 @@ Create a budgeting assistant that helps people spend money wisely and caters to 
 7. The user clicks on a new page to talk to the AI assistant to figure out its best plan.
 8. The user sees their current budgeting plan on a new page.
 
-<br />
-
 ## 4. Nonfunctional Requirements
 
 -   _Work in progress_
-
-<br />
 
 ##5. References
 
