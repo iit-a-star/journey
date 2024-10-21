@@ -63,13 +63,7 @@ Create a budgeting assistant that helps people spend money wisely and caters to 
 
 ## 4. Nonfunctional Requirements
 
-| ID  | Requirement |
-| --- | ----------- |
-|     |             |
-|     |             |
-|     |             |
-|     |             |
-|     |             |
+-   _Work in progress_
 
 <br />
 
