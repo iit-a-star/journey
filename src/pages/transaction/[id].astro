@@ -28,15 +28,15 @@ if (!accounts.some(({ id }) => tx?.from == id || tx?.to == id)) {
 	return Astro.rewrite('/403');
 }
 
-const from = (await getAccount(tx.from))!;
-const to = (await getAccount(tx.to))!;
+const from = (await getAccount(tx.from).catch(() => null)) || { id: null, name: null };
+const to = (await getAccount(tx.to).catch(() => null)) || { id: null, name: null };
 ---
 
 <Main title="View Transaction">
 	<div>
 		<h4>Transaction {tx.id}</h4>
-		<p>From: <a href={`/account/${from.id}`}>{from.name}</a></p>
-		<p>To: <a href={`/account/${to.id}`}>{to.name}</a></p>
+		<p>From: <a href={`/account/${from.id}`}>{from.name || <em>Unknown</em>}</a></p>
+		<p>To: <a href={`/account/${to.id}`}>{to.name || <em>Unknown</em>}</a></p>
 		<p>Amount: ${tx.amount}</p>
 		<p>Time: {new Date(tx.timestamp).toLocaleString()}</p>
 		<p>Memo: {tx.memo}</p>

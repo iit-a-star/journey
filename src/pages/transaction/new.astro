@@ -1,8 +1,7 @@
 ---
-import { setDB } from '../../api/common';
-import { getTransaction } from '../../api/transactions';
+import { addTransaction, createAccount, getAccount, getProfileAccounts, isValidAccountType, setDB } from '../../api';
 import Main from '../../layouts/Main.astro';
-import { currentUser } from '../../utils';
+import { checkParams, currentUser, parseBody } from '../../utils';
 
 setDB(Astro.locals.runtime?.env?.DB);
 
@@ -11,6 +10,53 @@ const profile = await currentUser(Astro.cookies);
 if (!profile) {
 	return Astro.redirect('/login');
 }
+
+let error: string | undefined;
+
+const referer = Astro.request.headers.get('referer');
+
+const refererRegex = new RegExp(Astro.url.host + '/account/([a-f0-9]{32})');
+
+const from_id = referer && refererRegex.test(referer) ? refererRegex.exec(referer)![1] : null;
+
+const accounts = await getProfileAccounts(profile.id);
+
+try {
+	if (Astro.request.method == 'POST') {
+		// parse body
+		const body = await parseBody<{ memo?: string; amount: string; to: string; from: string }>(Astro.request);
+
+		checkParams(body, 'memo', 'amount', 'to', 'from');
+
+		await addTransaction(body.from, body.to, +body.amount, body.memo);
+
+		return Astro.redirect('/account/' + (from_id || body.to));
+	}
+} catch (e) {
+	error = e;
+}
 ---
 
-<Main title="New Transaction"> Work In Progress</Main>
+<Main title="Add a transaction">
+	{error && <div class="error">{error}</div>}
+	<form method="post">
+		<h2>Add a transaction</h2>
+		<br /><br />
+		<label for="from">From:</label>
+		<input name="from" value={from_id || ''} disabled={!!from_id} size="32" />
+		<br />
+		<label for="to">To:</label>
+		<select name="to">
+			<option value="" disabled selected>Select an account</option>
+			{accounts.map(account => <option value={account.id}>{account.name}</option>)}
+		</select>
+		<br />
+		<label for="amount">Amount:</label>
+		<input type="number" name="amount" />
+		<br />
+		<label for="memo">Memo:</label>
+		<input type="text" name="memo" />
+		<br /><br />
+		<button>Save</button>
+	</form>
+</Main>

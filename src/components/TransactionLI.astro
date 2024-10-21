@@ -8,8 +8,8 @@ interface Props {
 
 const { transaction, account } = Astro.props;
 
-const from = (await getAccount(transaction.from))!;
-const to = (await getAccount(transaction.to))!;
+const from = (await getAccount(transaction.from).catch(() => null)) || { id: null, name: null };
+const to = (await getAccount(transaction.to).catch(() => null)) || { id: null, name: null };
 const { amount, timestamp, memo, id } = transaction;
 
 import '../styles/transaction-li.css';
@@ -30,10 +30,10 @@ import '../styles/transaction-li.css';
 	) : (
 		<li>
 			<p class="from">
-				From <a href={`/account/${from.id}`}>{from.name}</a>
+				From <a href={`/account/${from.id}`}>{from.name || <em>Unknown</em>}</a>
 			</p>
 			<p class="to">
-				To <a href={`/account/${to.id}`}>{to.name}</a>
+				To <a href={`/account/${to.id}`}>{to.name || <em>Unknown</em>}</a>
 			</p>
 			<p class="amount">Amount ${transaction.amount}</p>
 			<p class="timestamp">{new Date(timestamp).toLocaleString()}</p>

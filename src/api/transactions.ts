@@ -1,3 +1,4 @@
+import { randomHex } from '../utils.js';
 import { getDB } from './common.js';
 
 export interface TransactionMetadata {
@@ -49,4 +50,9 @@ export async function getTransactions(account: string): Promise<Transaction[] | 
 
 export function getTransaction(id: string): Promise<Transaction | null> {
 	return getDB().prepare('select * from transactions where id=?').bind(id).first();
+}
+
+export async function addTransaction(from: string, to: string, amount: number, memo?: string): Promise<void> {
+	const id = randomHex(32);
+	await getDB().prepare('insert into transactions (id, "from", "to", amount, memo) values (?,?,?,?,?)').bind(id, from, to, amount, memo).run();
 }
