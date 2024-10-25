@@ -2,7 +2,7 @@
 
 Journey is a simple financial app designed for the P33 project.
 
-You can get it locally by cloning this repsitory and running a few commands.
+You can get it locally by cloning this repository and running a few commands.
 
 In case you don't have it already, install [Node.js](https://nodejs.org/).
 
