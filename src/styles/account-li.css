@@ -1,0 +1,35 @@
+li {
+	display: flex;
+	flex-direction: row;
+	gap: 5em;
+	border-radius: 0.5em;
+	margin-bottom: 0.5em;
+	border: 1px solid #ccc;
+	padding-left: 1em;
+	padding-right: 1em;
+	text-align: left;
+}
+
+p {
+	white-space: nowrap;
+	margin: 0;
+	padding: 0.25em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+p.name {
+	flex-grow: 1;
+}
+
+p.type {
+	flex: 0 0 5em;
+}
+
+p.type.checking {
+	color: hsl(calc(var(--hue) - 20), 100%, 90%, 0.8);
+}
+
+p.type.savings {
+	color: hsl(calc(var(--hue) + 20), 100%, 90%, 0.8);
+}

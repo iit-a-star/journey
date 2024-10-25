@@ -1,5 +1,6 @@
 ---
 import { Account } from '../api';
+import { capitalize } from 'utilium';
 
 interface Props {
 	account: Account;
@@ -8,24 +9,11 @@ interface Props {
 const {
 	account: { type, name, id },
 } = Astro.props;
+
+import '../styles/account-li.css';
 ---
 
-<style>
-	li {
-		display: flex;
-		flex-direction: row;
-		gap: 10em;
-		border-radius: 0.5em;
-		border: 1px solid #ccc;
-		padding-left: 1em;
-		padding-right: 1em;
-	}
-
-	p.savings {
-	}
-</style>
-
 <li>
-	<p class={type}>{type}</p>
-	<p><a href=`/account/${id}`>{name}</a></p>
+	<p class={'type ' + type}>{capitalize(type)}</p>
+	<p class="name"><a href=`/account/${id}`>{name}</a></p>
 </li>

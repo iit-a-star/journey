@@ -43,7 +43,17 @@ try {
 		<h2>Add a transaction</h2>
 		<br /><br />
 		<label for="from">From:</label>
-		<input name="from" value={from_id || ''} disabled={!!from_id} size="32" />
+		{
+			from_id ? (
+				<>
+					<input name="from" type="hidden" value={from_id} />
+					<span>{from_id}</span>
+				</>
+			) : (
+				<input name="from" size="32" />
+			)
+		}
+
 		<br />
 		<label for="to">To:</label>
 		{
@@ -57,7 +67,7 @@ try {
 					))}
 				</select>
 			) : (
-				<input name="to" />
+				<input name="to" size="32" />
 			)
 		}
 		<br />

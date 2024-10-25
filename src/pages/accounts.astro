@@ -19,6 +19,11 @@ const accounts = await getProfileAccounts(profile.id);
 	ul {
 		list-style: none;
 	}
+
+	.header {
+		font-weight: bold;
+		border: none;
+	}
 </style>
 <Main title="Accounts" center>
 	<h2>Your Accounts</h2>
@@ -27,6 +32,10 @@ const accounts = await getProfileAccounts(profile.id);
 			accounts
 		) : (
 			<ul>
+				<li class="header">
+					<p class="type">Type</p>
+					<p class="name">Name</p>
+				</li>
 				{accounts.map(account => (
 					<AccountLI {account} />
 				))}
