@@ -1,6 +1,7 @@
 /* Default styles to be used (does not include specific element styling) */
 :root {
 	--hue: 32;
+	--hue-nav: 20;
 	--_bg-color: var(--hue), 50%, 25%;
 	--text-color: hsl(var(--hue), 100%, 90%, 0.8);
 	--text-shadow: 0 0 7px hsl(var(--hue), 100%, 50%);

@@ -2,7 +2,7 @@
 	color-scheme: only dark;
 }
 nav {
-	background-color: hsl(20, 75%, 50%);
+	background-color: hsl(var(--hue-nav), 75%, 50%);
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -20,7 +20,7 @@ nav > a {
 }
 
 nav div {
-	background-color: hsl(20, 100%, 50%);
+	background-color: hsl(var(--hue-nav), 100%, 50%);
 	width: fit-content;
 	height: fit-content;
 	padding: 10px;
@@ -52,7 +52,7 @@ svg.icon {
 	display: inline;
 	width: 1em;
 	height: 1em;
-	fill: hsla(200, 100%, 90%, 0.8);
+	fill: var(--text-color);
 }
 
 svg.icon.source {
@@ -82,7 +82,7 @@ svg.icon.source {
 }
 
 a.action {
-	background: hsla(20, 100%, 50%, 1);
+	background: hsla(var(--hue-nav), 100%, 50%, 1);
 	padding: 10px 20px 10px 20px;
 	margin: 5px 10px 5px 10px;
 	border-radius: 4px;
