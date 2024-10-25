@@ -46,10 +46,20 @@ try {
 		<input name="from" value={from_id || ''} disabled={!!from_id} size="32" />
 		<br />
 		<label for="to">To:</label>
-		<select name="to">
-			<option value="" disabled selected>Select an account</option>
-			{accounts.map(account => <option value={account.id}>{account.name}</option>)}
-		</select>
+		{
+			from_id ? (
+				<select name="to">
+					<option value="" disabled selected>
+						Select an account
+					</option>
+					{accounts.map(account => (
+						<option value={account.id}>{account.name}</option>
+					))}
+				</select>
+			) : (
+				<input name="to" />
+			)
+		}
 		<br />
 		<label for="amount">Amount:</label>
 		<input type="number" name="amount" />
