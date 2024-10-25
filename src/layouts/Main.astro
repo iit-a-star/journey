@@ -58,6 +58,44 @@ const { title, center, profile = await currentUser(Astro.cookies) } = Astro.prop
 			<a href="/" style="padding-top:2%">Home</a>
 			<a href="/accounts">My Accounts</a>
 		</nav><br /><br />
+
+		<script>
+			let hue = 0,
+				i: number | undefined;
+
+			function stobe_start() {
+				if (i) {
+					return;
+				}
+
+				console.debug('Strobe started');
+
+				hue = 0;
+				i = setInterval(() => {
+					hue = (hue + 1) % 360;
+					document.documentElement.style.setProperty('--hue', (hue + 16).toString());
+					document.documentElement.style.setProperty('--hue-nav', hue.toString());
+				}, 50) as unknown as number;
+			}
+
+			function stobe_stop() {
+				if (!i) {
+					return;
+				}
+
+				console.debug('Strobe ended');
+
+				clearInterval(i);
+				i = undefined;
+			}
+
+			document.body.addEventListener('keydown', e => {
+				if (e.key == 'J' && e.shiftKey) {
+					e.preventDefault();
+					i ? stobe_stop() : stobe_start();
+				}
+			});
+		</script>
 		{
 			center ? (
 				<div class="center-content">
