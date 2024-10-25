@@ -16,6 +16,7 @@
 	--bg-radius: 4px;
 	--bg-translucent-text: #2225;
 }
+
 * {
 	scrollbar-color: var(--text-color);
 	scrollbar-width: thin;
@@ -24,30 +25,36 @@
 	color: var(--text-color);
 	font-family: sans-serif;
 }
+
 body {
 	background-color: var(--bg-color-alt);
 	font-size: var(--font-size);
 }
+
 h1,
 h2,
 h3 {
 	text-shadow: var(--text-shadow);
 }
+
 code {
 	font-family: monospace;
 	background-color: #222;
 	border: 1px solid #080808;
 	border-radius: 25%;
 }
+
 select {
 	background-color: var(--bg-color-alt);
 }
+
 table,
 tr,
 td {
 	border: 1px solid white;
 	border-collapse: collapse;
 }
+
 table {
 	background: var(--bg-color-alt);
 	display: inline-block;
@@ -56,9 +63,11 @@ table {
 	width: fit-content;
 	margin: 24px;
 }
+
 td {
 	padding: 3px;
 }
+
 button {
 	background: radial-gradient(ellipse at center, var(--bg-gradient-dark) 0, var(--button-color) 150%);
 	box-shadow: var(--bg-shadow);
@@ -69,6 +78,7 @@ button {
 	margin-left: 1em;
 	margin-right: 1em;
 }
+
 button:hover {
 	background: radial-gradient(ellipse at center, var(--bg-gradient-dark) 0, var(--button-color) 100%);
 	box-shadow: var(--hover-shadow);
@@ -83,17 +93,21 @@ input[type='text'] {
 	display: inline-block;
 	background: linear-gradient(to top, var(--bg-gradient-light) 0, var(--bg-gradient-dark) 20%, var(--bg-gradient-dark) 60%, var(--bg-gradient-light) 100%);
 }
+
 dfn {
 	font-style: normal;
 	border-bottom: 1px hsla(200, 100%, 90%, 0.8) dotted;
 }
+
 input:hover {
 	cursor: text;
 }
+
 input[type='checkbox']:hover,
 [clickable] {
 	cursor: pointer;
 }
+
 dialog {
 	background-color: var(--bg-color);
 	border-radius: var(--bg-radius);
@@ -101,12 +115,14 @@ dialog {
 	text-align: center;
 	border: none;
 }
+
 input[type='range'] {
 	appearance: none;
 	overflow: hidden;
 	height: 10px;
 	background: var(--bg-color);
 }
+
 ::-webkit-slider-runnable-track {
 	-webkit-appearance: none;
 	appearance: none;
@@ -116,6 +132,7 @@ input[type='range'] {
 	background: var(--bg-color);
 	outline: none;
 }
+
 ::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	appearance: none;
@@ -125,29 +142,36 @@ input[type='range'] {
 	cursor: pointer;
 	background: var(--text-color);
 }
+
 ::-webkit-scrollbar {
 	background-color: #0000;
 	width: 5px;
 }
+
 ::-webkit-scrollbar-track {
 	background-color: #0000;
 }
+
 ::-webkit-scrollbar-thumb {
 	background-color: var(--text-color);
 	border-radius: 2.5px;
 }
+
 progress {
 	background-color: var(--button-color);
 	border-radius: var(--bg-radius);
 }
+
 progress::-webkit-progress-bar {
 	background-color: #0000;
 	border-radius: var(--bg-radius);
 }
+
 progress::-moz-progress-bar {
 	background-color: var(--text-color);
 	border-radius: var(--bg-radius);
 }
+
 progress::-webkit-progress-value {
 	background-color: var(--text-color);
 	border-radius: var(--bg-radius);
