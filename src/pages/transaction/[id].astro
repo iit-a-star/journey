@@ -1,5 +1,5 @@
 ---
-import { getAccount, getProfileAccounts } from '../../api';
+import { Account, getAccount, getProfileAccounts } from '../../api';
 import { setDB } from '../../api/common';
 import { getTransaction } from '../../api/transactions';
 import Main from '../../layouts/Main.astro';
@@ -28,15 +28,17 @@ if (!accounts.some(({ id }) => tx?.from == id || tx?.to == id)) {
 	return Astro.rewrite('/403');
 }
 
-const from = (await getAccount(tx.from).catch(() => null)) || { id: null, name: null };
-const to = (await getAccount(tx.to).catch(() => null)) || { id: null, name: null };
+const from = (await getAccount(tx.from).catch(() => null)) || ({} as Partial<Account>);
+const to = (await getAccount(tx.to).catch(() => null)) || ({} as Partial<Account>);
 ---
 
 <Main title="View Transaction">
 	<div>
 		<h4>Transaction {tx.id}</h4>
-		<p>From: <a href={`/account/${from.id}`}>{from.name || <em>Unknown</em>}</a></p>
-		<p>To: <a href={`/account/${to.id}`}>{to.name || <em>Unknown</em>}</a></p>
+		<p>
+			From: {from.profile == profile.id ? <a href={`/account/${from.id}`}>{from.name || <em>Unknown</em>}</a> : <span>{from.id || <em>Unknown</em>}</span>}
+		</p>
+		<p>To: {to.profile == profile.id ? <a href={`/account/${to.id}`}>{to.name || <em>Unknown</em>}</a> : <span>{to.id || <em>Unknown</em>}</span>}</p>
 		<p>Amount: ${tx.amount}</p>
 		<p>Time: {new Date(tx.timestamp).toLocaleString()}</p>
 		<p>Memo: {tx.memo}</p>
