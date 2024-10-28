@@ -34,21 +34,18 @@ if (Astro.request.method == 'POST') {
 		err = e;
 	}
 }
+
+import '../styles/forms.css';
 ---
 
 <Main title="login" center>
-	<h1>Login</h1>
-	<br /><br /><br />
-	{err && <div class="error">{err}</div>}
-	<style>
-		input {
-			padding: 0.25em;
-			margin: 0.5em;
-		}
-	</style>
 	<form method="post">
-		<input name="email" placeholder="E-Mail" style="width:25%" type="email" autocomplete="email" /><br />
-		<input name="password" placeholder="Password" style="width:25%" type="password" autocomplete="current-password" /><br /><br />
+		<h1>Login</h1>
+		{err && <div class="error">{err}</div>}
+		<label for="email">Email</label>
+		<input name="email" type="email" autocomplete="email" />
+		<label for="password">Password</label>
+		<input name="password" type="password" autocomplete="current-password" />
 		<button>Login</button>
 	</form>
 	<br />
