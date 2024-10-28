@@ -2,10 +2,11 @@ form {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
 	border: 1px solid #fff4;
 	border-radius: 1em;
 	padding: 4em 0em;
+	margin-top: 2em;
+	margin-bottom: 2em;
 
 	label {
 		display: block;
