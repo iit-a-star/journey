@@ -1,0 +1,21 @@
+@media (min-width: calc(700px + 20em)) {
+	li {
+		margin: 0 var(--li-margin) 0.5em;
+	}
+}
+
+@media (max-width: calc(700px + 20em)) {
+	li {
+		margin: 0 calc(calc(100% - var(--li-min-width)) / 2) 0.5em;
+	}
+}
+
+li {
+	display: flex;
+	flex-direction: row;
+	width: max(var(--li-min-width), calc(100% - calc(var(--li-margin) * 2)));
+	border-radius: 0.5em;
+	border: 1px solid #ccc;
+	padding-left: 1em;
+	padding-right: 1em;
+}

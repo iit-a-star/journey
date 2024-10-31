@@ -12,6 +12,7 @@ const from = (await getAccount(transaction.from).catch(() => null)) || { id: nul
 const to = (await getAccount(transaction.to).catch(() => null)) || { id: null, name: null };
 const { amount, timestamp, memo, id } = transaction;
 
+import '../styles/li.css';
 import '../styles/transaction-li.css';
 ---
 

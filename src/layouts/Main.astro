@@ -15,7 +15,6 @@ setDB(Astro.locals.runtime?.env?.DB);
 const { title, center, profile = await currentUser(Astro.cookies) } = Astro.props;
 ---
 
-<!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
@@ -26,14 +25,6 @@ const { title, center, profile = await currentUser(Astro.cookies) } = Astro.prop
 		<meta name="generator" content={Astro.generator} />
 		<title>Journey - {title}</title>
 		<slot name="in-header" />
-		<style>
-			.center-content {
-				position: absolute;
-				left: 25%;
-				width: 50%;
-				text-align: center;
-			}
-		</style>
 	</head>
 	<body>
 		<nav>
@@ -88,14 +79,6 @@ const { title, center, profile = await currentUser(Astro.cookies) } = Astro.prop
 				}
 			});
 		</script>
-		{
-			center ? (
-				<div class="center-content">
-					<slot />
-				</div>
-			) : (
-				<slot />
-			)
-		}
+		<slot />
 	</body>
 </html>

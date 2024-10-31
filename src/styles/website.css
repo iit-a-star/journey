@@ -1,6 +1,14 @@
 :root {
 	color-scheme: only dark;
+
+	--li-margin: 10em;
+	--li-min-width: 700px;
 }
+
+.center {
+	text-align: center;
+}
+
 nav {
 	background: none;
 	position: fixed;

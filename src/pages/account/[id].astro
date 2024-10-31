@@ -26,6 +26,7 @@ const transactions = account && (await getTransactions(account.id));
 
 const balance = transactions?.reduce((total, tx) => total + (tx.from == account.id ? -1 : 1) * tx.amount, 0);
 
+import '../../styles/li.css';
 import '../../styles/transaction-li.css';
 ---
 
@@ -68,6 +69,6 @@ import '../../styles/transaction-li.css';
 		}
 
 		<br />
-		<a href="/transaction/new"><button>Add a transaction</button></a>
+		<div class="center"><a href="/transaction/new"><button>Add a transaction</button></a></div>
 	</div>
 </Main>
