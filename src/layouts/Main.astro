@@ -37,26 +37,18 @@ const { title, center, profile = await currentUser(Astro.cookies) } = Astro.prop
 	</head>
 	<body>
 		<nav>
+			<a href="/"><img id="logo-link" src="/logo.svg" /></a>
 			<a id="profile-link" class="sub-menu" href={profile ? '/profile' : '/login'}>{profile ? 'Logged in as ' + profile.name : 'Login'}</a>
 			{
 				profile && (
 					<div class="sub-menu" style="position:fixed;right:1px;top:50px">
-						<>
+						<div>
 							<a href="/profile">Profile</a>
-							<br />
-						</>
-						{profile?.type! > 0 && (
-							<>
-								<a href="/admin">Admin</a>
-								<br />
-							</>
-						)}
-						<a href="/logout">Log&nbsp;out</a>
+							<a href="/logout">Log&nbsp;out</a>
+						</div>
 					</div>
 				)
 			}
-			<a href="/" style="padding-top:2%">Home</a>
-			<a href="/accounts">My Accounts</a>
 		</nav><br /><br />
 
 		<script>
