@@ -1,6 +1,13 @@
 ---
 import Main from '../layouts/Main.astro';
 import LoginUI from '../components/Login.astro';
+import { currentUser } from '../utils';
+
+const profile = await currentUser(Astro.cookies);
+
+if (profile) {
+	return Astro.redirect('/accounts');
+}
 ---
 
 <style is:global>
