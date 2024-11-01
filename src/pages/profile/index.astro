@@ -6,6 +6,6 @@ import { currentUser } from '../../utils';
 const profile = await currentUser(Astro.cookies);
 ---
 
-<Main title="Profile" center {profile}>
+<Main title="Profile" {profile}>
 	<ProfileView {profile} viewer={profile} />
 </Main>
