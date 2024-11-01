@@ -22,7 +22,7 @@
 	scrollbar-color: var(--text-color);
 	scrollbar-width: thin;
 	accent-color: var(--text-color);
-	color-scheme: light dark;
+	color-scheme: only dark;
 	color: var(--text-color);
 	font-family: sans-serif;
 }
