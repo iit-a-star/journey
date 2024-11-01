@@ -28,6 +28,7 @@ const balance = transactions?.reduce((total, tx) => total + (tx.from == account.
 
 import '../../styles/li.css';
 import '../../styles/transaction-li.css';
+import { capitalize } from 'utilium';
 ---
 
 <style>
@@ -39,13 +40,17 @@ import '../../styles/transaction-li.css';
 	ul {
 		padding-left: 0;
 	}
+
+	.title {
+	}
 </style>
 <Main title="Account">
 	<div>
-		<p>Account name: {account.name}</p>
-		<p>Account type: {account.type}</p>
-		<p>Account ID: {account.id}</p>
-		<p>Balance: {typeof balance != 'number' ? 'Unknown' : `${balance >= 0 ? '' : '-'}$${Math.abs(balance)}`}</p>
+		<div class="center title">
+			<p>{capitalize(account.type)} Account #{account.id}</p>
+			<p>Nickname: {account.name}</p>
+			<p>Balance: {typeof balance != 'number' ? 'Unknown' : `${balance >= 0 ? '' : '-'}$${Math.abs(balance)}`}</p>
+		</div>
 
 		<h4>Transactions</h4>
 		{
