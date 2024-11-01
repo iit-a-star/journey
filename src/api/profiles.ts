@@ -1,4 +1,4 @@
-import { hash, randomHex } from '../utils.js';
+import { checkParams, hash, parseBody, randomHex } from '../utils.js';
 import { getDB, type Access, type KeyValue } from './common.js';
 
 export const uniqueProfileAttributes = ['id', 'name', 'email', 'token', 'session'];
@@ -388,4 +388,27 @@ export function sendMailToUser({ name, email }: { name: string; email?: string }
 		throw 'Missing email';
 	}
 	return sendMail(`${name} <${email}>`, subject, `${name},\n\n${contents}\n\nBest,\nThe Journey dev team`);
+}
+
+export async function tryLogin(request: Request) {
+	const body = await parseBody<{ email: string; password: string }>(request);
+	if (!isValidProfileAttribute('email', body.email)) throw 'You must enter a valid email.';
+
+	checkParams(body, 'email', 'password');
+
+	const profile = await getProfile('email', body.email);
+
+	if (!profile) {
+		throw 'Profile does not exist';
+	}
+
+	if (profile.is_disabled) {
+		throw 'Profile is disabled';
+	}
+
+	if (profile.password != hash(body.password)) {
+		throw 'Incorrect password';
+	}
+
+	return await login(profile.id);
 }

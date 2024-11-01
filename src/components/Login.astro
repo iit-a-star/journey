@@ -2,36 +2,8 @@
 import { checkParams, hash, parseBody } from '../utils';
 import { getProfile, isValidProfileAttribute, login, setDB } from '../api';
 
-let err: Error | undefined;
-if (Astro.request.method == 'POST') {
-	setDB(Astro.locals.runtime?.env?.DB);
-
-	try {
-		const body = await parseBody<{ email: string; password: string }>(Astro.request);
-		if (!isValidProfileAttribute('email', body.email)) throw 'You must enter a valid email.';
-
-		checkParams(body, 'email', 'password');
-
-		const profile = await getProfile('email', body.email);
-
-		if (!profile) {
-			throw 'Profile does not exist';
-		}
-
-		if (profile.is_disabled) {
-			throw 'Profile is disabled';
-		}
-
-		if (profile.password != hash(body.password)) {
-			throw 'Incorrect password';
-		}
-
-		const token = await login(profile.id);
-		Astro.cookies.set('token', token, { expires: new Date(Date.now() + 3600_000 * 24 * 28) });
-		return Astro.redirect('/');
-	} catch (e) {
-		err = e;
-	}
+interface Props {
+	error?: any;
 }
 
 import '../styles/forms.css';
@@ -39,7 +11,7 @@ import '../styles/forms.css';
 
 <form method="post">
 	<h1>Login</h1>
-	{err && <div class="error">{err}</div>}
+	{Astro.props.error && <div class="error">{Astro.props.error}</div>}
 	<label for="email">Email</label>
 	<input name="email" type="email" autocomplete="email" />
 	<label for="password">Password</label>

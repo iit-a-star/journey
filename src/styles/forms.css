@@ -4,16 +4,15 @@ form {
 	align-items: center;
 	border: 1px solid #fff4;
 	border-radius: 1em;
-	padding: 4em 0em;
-	margin-top: 2em;
-	margin-bottom: 2em;
+	padding: 4em 0;
+	margin: 2em 0;
 
 	label {
 		display: block;
 	}
 
 	input {
-		width: 75%;
+		width: min(75%, 100em);
 		padding: 0.5em;
 		margin: 0.5em;
 		border-radius: 0.5em;

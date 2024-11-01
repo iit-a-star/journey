@@ -1,12 +1,30 @@
 ---
 import Main from '../layouts/Main.astro';
 import LoginUI from '../components/Login.astro';
+import { setDB } from '../api/common';
 import { currentUser } from '../utils';
+import { tryLogin } from '../api/profiles';
 
 const profile = await currentUser(Astro.cookies);
 
 if (profile) {
 	return Astro.redirect('/accounts');
+}
+
+let error: Error | undefined;
+if (Astro.request.method == 'POST') {
+	setDB(Astro.locals.runtime?.env?.DB);
+
+	console.log('Attempting to log in...');
+	const token = await tryLogin(Astro.request).catch(e => {
+		error = e;
+		console.error(e);
+	});
+	console.log('Token:', token);
+	if (token) {
+		Astro.cookies.set('token', token, { expires: new Date(Date.now() + 3600_000 * 24 * 28) });
+		return Astro.redirect('/accounts');
+	}
 }
 ---
 
@@ -19,7 +37,7 @@ if (profile) {
 </style>
 
 <Main title="Home" center>
-	<LoginUI class="login" />
+	<LoginUI {error} />
 	<p>Sign up and open an account now!</p>
 	<p><sub><em>Work in progress.</em></sub></p>
 </Main>

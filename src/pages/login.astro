@@ -1,9 +1,24 @@
 ---
 import Main from '../layouts/Main.astro';
 import LoginUI from '../components/Login.astro';
+import { setDB } from '../api/common';
+import { tryLogin } from '../api/profiles';
+
+let error: Error | undefined;
+if (Astro.request.method == 'POST') {
+	setDB(Astro.locals.runtime?.env?.DB);
+
+	const token = await tryLogin(Astro.request).catch(e => {
+		error = e;
+	});
+	if (token) {
+		Astro.cookies.set('token', token, { expires: new Date(Date.now() + 3600_000 * 24 * 28) });
+		return Astro.redirect('/accounts');
+	}
+}
 ---
 
 <Main title="login" center>
-	<LoginUI />
+	<LoginUI {error} />
 	<a href="/register">Register Instead</a>
 </Main>
