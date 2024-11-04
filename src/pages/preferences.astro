@@ -15,7 +15,7 @@ if (!profile) {
 if (Astro.request.method == 'POST') {
 	setDB(Astro.locals.runtime?.env?.DB);
 
-	
+	return Astro.redirect(Astro.request.referrer == '/register' ? '/' : '/profile');
 }
 
 import '../styles/forms.css';

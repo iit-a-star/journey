@@ -15,7 +15,8 @@ if (Astro.request.method == 'POST') {
 
 		const token = await login(profile.id);
 		Astro.cookies.set('token', token, { expires: new Date(Date.now() + 3600_000 * 24 * 28) });
-		return Astro.redirect('/');
+		
+		return Astro.redirect('/preferences');
 	} catch (err: any) {
 		error = err.message || err;
 	}
