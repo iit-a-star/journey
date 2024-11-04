@@ -1,8 +1,10 @@
 ---
 import Main from '../../layouts/Main.astro';
 import ProfileView from '../../components/Profile.astro';
-import { Profile, getProfile, ProfileType } from '../../api';
+import { Profile, getProfile, setDB } from '../../api';
 import { currentUser } from '../../utils';
+
+setDB(Astro.locals.runtime?.env?.DB);
 
 const viewer = await currentUser(Astro.cookies);
 let profile: Profile | undefined, error: string | Error | undefined;
