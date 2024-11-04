@@ -25,30 +25,6 @@ nav > :not(div) {
 	text-decoration: none;
 }
 
-nav > div {
-	background-color: hsl(var(--hue-nav), 100%, 50%);
-	width: fit-content;
-	height: fit-content;
-	padding: 1em;
-	text-align: center;
-}
-
-nav div.sub-menu {
-	display: none;
-	border-radius: 0.33em;
-
-	div {
-		display: flex;
-		gap: 1em;
-		flex-direction: column;
-	}
-}
-
-nav a.sub-menu:hover + div.sub-menu,
-div.sub-menu:hover {
-	display: block;
-}
-
 nav .title {
 	left: 12em;
 	width: min(fit-content, 10em);

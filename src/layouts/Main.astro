@@ -34,7 +34,7 @@ const { title, navTitle = '', profile = await currentUser(Astro.cookies) } = Ast
 			</a>
 			<span class="title">{navTitle}</span>
 			
-			<a class="profile" class="sub-menu" href={profile ? '/profile' : '/login'}>
+			<a class="profile" href={profile ? '/profile' : '/login'}>
 				{profile ? <>
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon"><use href="/icons.svg#user" /></svg>
 					<span>{profile.name}</span>
