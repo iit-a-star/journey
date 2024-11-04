@@ -1,8 +1,6 @@
 :root {
 	color-scheme: only dark;
-
 	--li-margin: 10em;
-	--li-min-width: 700px;
 }
 
 .center {
@@ -62,8 +60,14 @@ nav a.home {
 }
 
 nav a.profile {
+	right: 8em;
+	text-align: right;
+}
+
+nav a.logout {
 	right: 1em;
 	text-align: right;
+	text-decoration: underline;
 }
 
 svg.icon {

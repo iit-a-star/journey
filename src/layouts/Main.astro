@@ -33,18 +33,14 @@ const { title, navTitle = '', profile = await currentUser(Astro.cookies) } = Ast
 				<span>Journey</span>
 			</a>
 			<span class="title">{navTitle}</span>
+			
 			<a class="profile" class="sub-menu" href={profile ? '/profile' : '/login'}>
 				{profile ? <>
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon"><use href="/icons.svg#user" /></svg>
 					<span>{profile.name}</span>
 				</> : 'Login'}
 			</a>
-			{profile && <div class="sub-menu" style="position:fixed;right:1px;top:50px">
-				<div>
-					<a href="/profile">Profile</a>
-					<a href="/logout">Log&nbsp;out</a>
-				</div>
-			</div>}
+			{profile && <a class="logout" href="/logout">Log&nbsp;out</a>}	
 		</nav><br /><br />
 
 		<script>
