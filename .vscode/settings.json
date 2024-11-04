@@ -22,5 +22,5 @@
 	"[svg]": {
 		"editor.defaultFormatter": null
 	},
-	"editor.formatOnSave": true
+	"editor.formatOnSave": false
 }
