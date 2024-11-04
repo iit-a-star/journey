@@ -2,6 +2,9 @@
 import Main from '../../layouts/Main.astro';
 import ProfileView from '../../components/Profile.astro';
 import { currentUser } from '../../utils';
+import { setDB } from '../../api/common';
+
+setDB(Astro.locals.runtime?.env?.DB);
 
 const profile = await currentUser(Astro.cookies);
 ---

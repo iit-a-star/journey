@@ -1,5 +1,5 @@
 ---
-import { getProfileRole, stripProfileInfo, type Profile } from '../api';
+import { getProfileRole, type Profile } from '../api';
 
 interface Props {
 	profile?: Profile;
@@ -15,8 +15,6 @@ const editable = profile === viewer || viewer?.type! > Math.max(profile?.type!, 
 </svg>}
 <div
 	class="profile center"
-	data-profile={encodeURIComponent(JSON.stringify(profile ? stripProfileInfo(profile) : null))}
-	data-viewer={encodeURIComponent(JSON.stringify(viewer ? stripProfileInfo(viewer) : null))}
 	id="profile"
 >
 	<style>
