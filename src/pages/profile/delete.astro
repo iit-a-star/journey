@@ -1,0 +1,28 @@
+---
+import Main from '../../layouts/Main.astro';
+import { deleteProfile, setDB } from '../../api';
+import { currentUser } from '../../utils';
+
+setDB(Astro.locals.runtime?.env?.DB);
+
+const profile = await currentUser(Astro.cookies);
+
+if (!profile) {
+	return Astro.redirect('/login');
+}
+
+if(Astro.request.method == 'POST') {
+	await deleteProfile(profile.id);
+	return Astro.redirect('/');
+}
+---
+
+<Main title="Delete Profile">
+	<br /><br />
+	<div class="center">
+		<p>Are you sure? You will not be able to undo your profile deletion</p>
+		<form method="post">
+			<button>Delete my profile</button>
+		</form>
+	</div>
+</Main>

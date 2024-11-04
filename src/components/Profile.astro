@@ -124,6 +124,7 @@ const editable = profile === viewer || viewer?.type! > Math.max(profile?.type!, 
 		<h3>Profile Actions</h3>
 		<a href="/logout"><button>Logout</button></a>
 		<a href="/preferences"><button>Edit your preferences</button></a>
+		<a href="/profile/delete"><button>Delete profile</button></a>
 		{profile?.is_disabled ? viewer?.type! > profile?.type! && <button id="#enable">Enable</button> : <button id="#disable">Disable</button>}
 	</>}
 </div>
