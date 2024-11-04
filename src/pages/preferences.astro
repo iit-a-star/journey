@@ -1,0 +1,30 @@
+---
+import Main from '../layouts/Main.astro';
+import LoginUI from '../components/Login.astro';
+import { setDB } from '../api/common';
+import { currentUser } from '../utils';
+
+setDB(Astro.locals.runtime?.env?.DB);
+
+const profile = await currentUser(Astro.cookies);
+
+if (!profile) {
+	return Astro.redirect('/login');
+}
+
+if (Astro.request.method == 'POST') {
+	setDB(Astro.locals.runtime?.env?.DB);
+
+	
+}
+
+import '../styles/forms.css';
+---
+<Main title="Preferences">
+	<form>
+		<h2>Your Preferences</h2>
+		<label for=""></label>
+		<input type="text">
+		<button>Save</button>
+	</form>
+</Main>

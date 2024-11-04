@@ -227,7 +227,7 @@ export function isValidProfileAttribute<K extends keyof FullProfile>(key: K, val
 	}
 }
 
-export async function getProfileNum(): Promise<number> {
+export async function countProfiles(): Promise<number> {
 	return (await getDB().prepare('select count(1) as num from profiles').first<number>('num'))!;
 }
 

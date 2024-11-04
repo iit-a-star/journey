@@ -25,6 +25,10 @@ export interface Account {
 	type: AccountType;
 }
 
+export async function countAccounts(): Promise<number> {
+	return (await getDB().prepare('select count(1) as num from accounts').first<number>('num'))!;
+}
+
 export async function getProfileAccounts(id: string): Promise<Account[]> {
 	const { results, success } = await getDB().prepare('select * from accounts where profile=?').bind(id).all<Account>();
 	if (!success) {

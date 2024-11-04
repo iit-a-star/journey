@@ -43,6 +43,10 @@ export interface Transaction {
 	readonly memo?: string;
 }
 
+export async function countTransactions(): Promise<number> {
+	return (await getDB().prepare('select count(1) as num from transactions').first<number>('num'))!;
+}
+
 export async function getTransactions(account: string): Promise<Transaction[] | null> {
 	const { results } = await getDB().prepare('select * from transactions where "from"=? or "to"=?').bind(account, account).all<Transaction>();
 	return results;

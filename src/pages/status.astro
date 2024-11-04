@@ -1,8 +1,14 @@
 ---
+import { countProfiles, countAccounts, countTransactions } from '../api';
 import Main from '../layouts/Main.astro';
+
+const numProfiles = await countProfiles(), numAccounts = await countAccounts(), numTx = await countTransactions();
 ---
 
 <Main title="Status">
 	<p>Current revision: {$revision}</p>
 	<p>Database is working: {Astro.locals.runtime?.env?.DB ? 'Yes' : 'No'}</p>
+	<p>Profiles: {numProfiles}</p>
+	<p>Accounts: {numAccounts}</p>
+	<p>Transactions: {numTx}</p>
 </Main>
