@@ -2,7 +2,7 @@
 import Main from '../layouts/Main.astro';
 ---
 
-<Main center title="Status">
+<Main title="Status">
 	<p>Current revision: {$revision}</p>
 	<p>Database is working: {Astro.locals.runtime?.env?.DB ? 'Yes' : 'No'}</p>
 </Main>

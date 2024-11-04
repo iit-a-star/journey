@@ -19,10 +19,12 @@ nav {
 	z-index: 2;
 }
 
-nav > a {
+nav > :not(div) {
 	position: absolute;
 	height: 100%;
 	line-height: 3em;
+	z-index: 4;
+	text-decoration: none;
 }
 
 nav > div {
@@ -49,17 +51,19 @@ div.sub-menu:hover {
 	display: block;
 }
 
+nav .title {
+	left: 12em;
+	width: min(fit-content, 10em);
+}
+
 nav a.home {
 	left: 1em;
 	width: 10em;
 }
 
 nav a.profile {
-	font-family: sans-serif;
 	right: 1em;
 	text-align: right;
-	z-index: 4;
-	text-decoration: none;
 }
 
 svg.icon {

@@ -47,8 +47,6 @@ import { capitalize } from 'utilium';
 </style>
 <Main title="Account">
 	<div>
-		<div class="center title">
-		</div>
 		{!transactions ? <p><em>Couldn't fetch your transactions.</em></p> : <ul>
 			<li class="title"><p class="memo">{capitalize(account.type)} Account #{account.id}</p></li>
 			<li class="title"><p class="memo">Nickname: {account.name}</p></li>

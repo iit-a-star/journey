@@ -6,13 +6,13 @@ import { currentUser } from '../utils';
 
 interface Props {
 	title: string;
-	center?: boolean;
+	navTitle?: string;
 	profile?: Profile;
 }
 
 setDB(Astro.locals.runtime?.env?.DB);
 
-const { title, center, profile = await currentUser(Astro.cookies) } = Astro.props;
+const { title, navTitle = '', profile = await currentUser(Astro.cookies) } = Astro.props;
 ---
 
 <html lang="en">
@@ -29,10 +29,10 @@ const { title, center, profile = await currentUser(Astro.cookies) } = Astro.prop
 	<body>
 		<nav>
 			<a class="home" href="/">
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon">
-					<use href="/icons.svg#house"></use>
-				</svg>
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon"><use href="/icons.svg#house"></use></svg>
+				<span>Journey</span>
 			</a>
+			<span class="title">{navTitle}</span>
 			<a class="profile" class="sub-menu" href={profile ? '/profile' : '/login'}>
 				{profile ? <>
 					<svg xmlns="http://www.w3.org/2000/svg" class="icon"><use href="/icons.svg#user" /></svg>

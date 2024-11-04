@@ -26,7 +26,7 @@ const accounts = await getProfileAccounts(profile.id);
 		border: none;
 	}
 </style>
-<Main title="Accounts" center>
+<Main title="Accounts">
 	<div class="center"><h2>Your Accounts</h2></div>
 	{typeof accounts == 'string' ? accounts : <ul>
 		<li class="header">
