@@ -51,8 +51,6 @@ import { capitalize } from 'utilium';
 			<p>Nickname: {account.name}</p>
 			<p>Balance: {typeof balance != 'number' ? 'Unknown' : `${balance >= 0 ? '' : '-'}$${Math.abs(balance)}`}</p>
 		</div>
-
-		<h4>Transactions</h4>
 		{
 			!transactions ? (
 				<p>

@@ -28,8 +28,25 @@ const { title, center, profile = await currentUser(Astro.cookies) } = Astro.prop
 	</head>
 	<body>
 		<nav>
-			<a href="/"><img id="logo-link" src="/logo.svg" /></a>
-			<a id="profile-link" class="sub-menu" href={profile ? '/profile' : '/login'}>{profile ? 'Logged in as ' + profile.name : 'Login'}</a>
+			<a class="home" href="/">
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon">
+					<use href="/icons.svg#house"></use>
+				</svg>
+			</a>
+			<a class="profile" class="sub-menu" href={profile ? '/profile' : '/login'}>
+				{
+					profile ? (
+						<>
+							<svg xmlns="http://www.w3.org/2000/svg" class="icon">
+								<use href="/icons.svg#user" />
+							</svg>
+							<span>{profile.name}</span>
+						</>
+					) : (
+						'Login'
+					)
+				}
+			</a>
 			{
 				profile && (
 					<div class="sub-menu" style="position:fixed;right:1px;top:50px">

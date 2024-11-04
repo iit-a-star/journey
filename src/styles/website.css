@@ -10,16 +10,19 @@
 }
 
 nav {
-	background: none;
+	background-color: hsl(var(--hue-nav), 75%, 50%);
 	position: fixed;
 	left: 0;
 	top: 0;
 	width: 100%;
-	height: 50px;
+	height: 3em;
 	z-index: 2;
-	font-family: sans-serif;
-	box-shadow: none;
-	list-style: none;
+}
+
+nav > a {
+	position: absolute;
+	height: 100%;
+	line-height: 3em;
 }
 
 nav > div {
@@ -46,25 +49,17 @@ div.sub-menu:hover {
 	display: block;
 }
 
-nav #logo-link {
-	position: fixed;
-	top: 0;
-	left: 0;
+nav a.home {
+	left: 1em;
 	width: 10em;
-	height: 5em;
-	border: 1px solid orange;
 }
 
-nav #profile-link {
+nav a.profile {
 	font-family: sans-serif;
-	position: fixed;
-	top: 0;
-	right: 0;
-	padding: 1em;
+	right: 1em;
 	text-align: right;
 	z-index: 4;
-	background-color: hsl(var(--hue-nav), 75%, 50%);
-	border-bottom-left-radius: 1em;
+	text-decoration: none;
 }
 
 svg.icon {
@@ -72,6 +67,7 @@ svg.icon {
 	width: 1em;
 	height: 1em;
 	fill: var(--text-color);
+	overflow: visible;
 }
 
 svg.icon.source {
