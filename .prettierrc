@@ -4,6 +4,5 @@
 	"trailingComma": "es5",
 	"tabWidth": 4,
 	"printWidth": 180,
-	"arrowParens": "avoid",
-	"plugins": ["prettier-plugin-astro"]
+	"arrowParens": "avoid"
 }

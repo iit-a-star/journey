@@ -51,10 +51,8 @@ const editable = profile === viewer || viewer?.type! > Math.max(profile?.type!, 
 		<button class="no">No</button><button class="yes">Yes</button>
 	</dialog>
 	<br />
-	{!profile && <div class="error">
-				<p>An profile was not specified or does not exist</p>
-	</div>}
-	{editable && Astro.url.searchParams.has('edit') &&	<div id="edit-container">
+	{!profile && <div class="error"><p>An profile was not specified or does not exist</p></div>}
+	{editable && Astro.url.searchParams.has('edit') &&	<form id="edit-container">
 		{Astro.url.searchParams.get('edit') == 'name' && <>
 			<input name="name" placeholder="New Name" autocomplete="on" />
 			<br />
@@ -82,7 +80,7 @@ const editable = profile === viewer || viewer?.type! > Math.max(profile?.type!, 
 		</span>}
 		<br />
 		<button id="change">Change</button>
-	</div>}
+	</form>}
 	{profile?.id && <>
 		<h1>Profile</h1>
 		<table>
