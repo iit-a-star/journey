@@ -1,3 +1,7 @@
+ul {
+	overflow-y: scroll;
+}
+
 li {
 	display: flex;
 	flex-direction: row;
