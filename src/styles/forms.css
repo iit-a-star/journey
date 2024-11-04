@@ -12,7 +12,7 @@ form {
 	}
 
 	input {
-		width: min(75%, 100em);
+		width: min(75%, 300px);
 		padding: 0.5em;
 		margin: 0.5em;
 		border-radius: 0.5em;

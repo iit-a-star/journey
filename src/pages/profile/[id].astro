@@ -7,7 +7,7 @@ import { currentUser } from '../../utils';
 const viewer = await currentUser(Astro.cookies);
 let profile: Profile | undefined, error: string | Error | undefined;
 try {
-	profile = Astro.params.id ? await getProfile(Astro.params.id, (viewer?.type ?? 0) > ProfileType.PROFILE ? 'protected' : 'public') : viewer;
+	profile = Astro.params.id ? await getProfile('id', Astro.params.id) : viewer;
 } catch (e) {
 	error = e;
 }

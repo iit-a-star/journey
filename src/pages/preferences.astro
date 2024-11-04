@@ -2,7 +2,7 @@
 import Main from '../layouts/Main.astro';
 import LoginUI from '../components/Login.astro';
 import { setDB } from '../api/common';
-import { currentUser } from '../utils';
+import { currentUser, parseBody } from '../utils';
 
 setDB(Astro.locals.runtime?.env?.DB);
 
@@ -15,7 +15,11 @@ if (!profile) {
 if (Astro.request.method == 'POST') {
 	setDB(Astro.locals.runtime?.env?.DB);
 
-	return Astro.redirect(Astro.request.referrer == '/register' ? '/' : '/profile');
+	const body = await parseBody<Record<'referrer' | 'PLACEHOLDER_1', string>>(Astro.request);
+
+	console.log('[ref]', body.referrer);
+
+	return Astro.redirect(body.referrer == '/register' ? '/' : '/profile');
 }
 
 import '../styles/forms.css';
@@ -23,7 +27,7 @@ import '../styles/forms.css';
 <Main title="Preferences">
 	<form method="post">
 		<h2>Your Preferences</h2>
-		<input type="hidden" name="referrer" value={Astro.request.referrer} />
+		<input type="hidden" name="referrer" value={Astro.request.headers.get('Referrer')} />
 		<label for="PLACEHOLDER_1">Placeholder 1</label>
 		<input name="PLACEHOLDER_1" type="text" />
 		<label for="PLACEHOLDER_2">Placeholder 1</label>
