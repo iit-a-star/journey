@@ -35,9 +35,7 @@ const to = (await getAccount(tx.to).catch(() => null)) || ({} as Partial<Account
 <Main title="View Transaction">
 	<div>
 		<h4>Transaction {tx.id}</h4>
-		<p>
-			From: {from.profile == profile.id ? <a href={`/account/${from.id}`}>{from.name || <em>Unknown</em>}</a> : <span>{from.id || <em>Unknown</em>}</span>}
-		</p>
+		<p>From: {from.profile == profile.id ? <a href={`/account/${from.id}`}>{from.name || <em>Unknown</em>}</a> : <span>{from.id || <em>Unknown</em>}</span>}</p>
 		<p>To: {to.profile == profile.id ? <a href={`/account/${to.id}`}>{to.name || <em>Unknown</em>}</a> : <span>{to.id || <em>Unknown</em>}</span>}</p>
 		<p>Amount: ${tx.amount}</p>
 		<p>Time: {new Date(tx.timestamp).toLocaleString()}</p>

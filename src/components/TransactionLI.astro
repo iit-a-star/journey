@@ -17,27 +17,23 @@ import '../styles/transaction-li.css';
 ---
 
 {
-	account ? (
-		<li>
-			<p class="memo">{transaction.memo}</p>
-			<p class="amount">
-				{from.id == account ? '-' : '+'} ${transaction.amount}
-			</p>
-			<p class="timestamp">{new Date(timestamp).toLocaleString()}</p>
-			<p class="details">
-				<a href={`/transaction/${id}`}>View Details →</a>
-			</p>
-		</li>
-	) : (
-		<li>
-			<p class="from">
-				From <a href={`/account/${from.id}`}>{from.name || <em>Unknown</em>}</a>
-			</p>
-			<p class="to">
-				To <a href={`/account/${to.id}`}>{to.name || <em>Unknown</em>}</a>
-			</p>
-			<p class="amount">Amount ${transaction.amount}</p>
-			<p class="timestamp">{new Date(timestamp).toLocaleString()}</p>
-		</li>
-	)
+	account ? <li>
+		<p class="memo">{transaction.memo}</p>
+		<p class="amount">
+			{from.id == account ? '-' : '+'} ${transaction.amount}
+		</p>
+		<p class="timestamp">{new Date(timestamp).toLocaleString()}</p>
+		<p class="details">
+			<a href={`/transaction/${id}`}>View Details →</a>
+		</p>
+	</li> :	<li>
+		<p class="from">
+			From <a href={`/account/${from.id}`}>{from.name || <em>Unknown</em>}</a>
+		</p>
+		<p class="to">
+			To <a href={`/account/${to.id}`}>{to.name || <em>Unknown</em>}</a>
+		</p>
+		<p class="amount">Amount ${transaction.amount}</p>
+		<p class="timestamp">{new Date(timestamp).toLocaleString()}</p>
+	</li>
 }

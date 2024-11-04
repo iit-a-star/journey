@@ -14,13 +14,8 @@ try {
 ---
 
 <Main title="Profile" profile={viewer}>
-	{
-		error ? (
-			<div class="error">
-				<p>{typeof error == 'string' ? error : error.message}</p>
-			</div>
-		) : (
-			<ProfileView {profile} {viewer} />
-		)
+	{error
+		? <div class="error"><p>{typeof error == 'string' ? error : error.message}</p></div>
+		: <ProfileView {profile} {viewer} />
 	}
 </Main>

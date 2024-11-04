@@ -51,25 +51,15 @@ import { capitalize } from 'utilium';
 			<p>Nickname: {account.name}</p>
 			<p>Balance: {typeof balance != 'number' ? 'Unknown' : `${balance >= 0 ? '' : '-'}$${Math.abs(balance)}`}</p>
 		</div>
-		{
-			!transactions ? (
-				<p>
-					<em>Couldn't fetch your transactions.</em>
-				</p>
-			) : (
-				<ul>
-					<li class="header">
-						<p class="memo">Memo</p>
-						<p class="amount">Amount</p>
-						<p class="timestamp">Time</p>
-						<p class="details">Details</p>
-					</li>
-					{transactions.map(tx => (
-						<TransactionLI transaction={tx} account={account.id} />
-					))}
-				</ul>
-			)
-		}
+		{!transactions ? <p><em>Couldn't fetch your transactions.</em></p> : <ul>
+			<li class="header">
+				<p class="memo">Memo</p>
+				<p class="amount">Amount</p>
+				<p class="timestamp">Time</p>
+				<p class="details">Details</p>
+			</li>
+			{transactions.map(tx => <TransactionLI transaction={tx} account={account.id} />)}
+		</ul>}
 
 		<br />
 		<div class="center"><a href="/transaction/new"><button>Add a transaction</button></a></div>

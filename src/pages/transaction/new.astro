@@ -43,33 +43,16 @@ try {
 		<h2>Add a transaction</h2>
 		<br /><br />
 		<label for="from">From:</label>
-		{
-			from_id ? (
-				<>
-					<input name="from" type="hidden" value={from_id} />
-					<span>{from_id}</span>
-				</>
-			) : (
-				<input name="from" size="32" />
-			)
-		}
-
+		{from_id ? <>
+			<input name="from" type="hidden" value={from_id} />
+			<span>{from_id}</span>
+		</> : <input name="from" size="32" />}
 		<br />
 		<label for="to">To:</label>
-		{
-			from_id ? (
-				<select name="to">
-					<option value="" disabled selected>
-						Select an account
-					</option>
-					{accounts.map(account => (
-						<option value={account.id}>{account.name}</option>
-					))}
-				</select>
-			) : (
-				<input name="to" size="32" />
-			)
-		}
+		{from_id ? <select name="to">
+			<option value="" disabled selected>Select an account</option>
+			{accounts.map(account => <option value={account.id}>{account.name}</option>)}
+		</select> : <input name="to" size="32" />}
 		<br />
 		<label for="amount">Amount:</label>
 		<input type="number" name="amount" />

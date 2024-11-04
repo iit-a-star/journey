@@ -28,21 +28,12 @@ const accounts = await getProfileAccounts(profile.id);
 </style>
 <Main title="Accounts" center>
 	<div class="center"><h2>Your Accounts</h2></div>
-	{
-		typeof accounts == 'string' ? (
-			accounts
-		) : (
-			<ul>
-				<li class="header">
-					<p class="type">Type</p>
-					<p class="name">Name</p>
-				</li>
-				{accounts.map(account => (
-					<AccountLI {account} />
-				))}
-			</ul>
-		)
-	}
-
+	{typeof accounts == 'string' ? accounts : <ul>
+		<li class="header">
+			<p class="type">Type</p>
+			<p class="name">Name</p>
+		</li>
+		{accounts.map(account => <AccountLI {account} />)}
+	</ul>}
 	<div class="center"><a href="/account/open"><button>Open an account</button></a></div>
 </Main>

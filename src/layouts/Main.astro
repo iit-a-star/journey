@@ -34,29 +34,17 @@ const { title, center, profile = await currentUser(Astro.cookies) } = Astro.prop
 				</svg>
 			</a>
 			<a class="profile" class="sub-menu" href={profile ? '/profile' : '/login'}>
-				{
-					profile ? (
-						<>
-							<svg xmlns="http://www.w3.org/2000/svg" class="icon">
-								<use href="/icons.svg#user" />
-							</svg>
-							<span>{profile.name}</span>
-						</>
-					) : (
-						'Login'
-					)
-				}
+				{profile ? <>
+					<svg xmlns="http://www.w3.org/2000/svg" class="icon"><use href="/icons.svg#user" /></svg>
+					<span>{profile.name}</span>
+				</> : 'Login'}
 			</a>
-			{
-				profile && (
-					<div class="sub-menu" style="position:fixed;right:1px;top:50px">
-						<div>
-							<a href="/profile">Profile</a>
-							<a href="/logout">Log&nbsp;out</a>
-						</div>
-					</div>
-				)
-			}
+			{profile && <div class="sub-menu" style="position:fixed;right:1px;top:50px">
+				<div>
+					<a href="/profile">Profile</a>
+					<a href="/logout">Log&nbsp;out</a>
+				</div>
+			</div>}
 		</nav><br /><br />
 
 		<script>
