@@ -5,7 +5,11 @@ interface Props {
 
 import '../styles/forms.css';
 ---
-
+<style>
+	.register {
+		margin-top: 2em;
+	}
+</style>
 <form method="post">
 	<h1>Login</h1>
 	{Astro.props.error && <div class="error">{Astro.props.error}</div>}
@@ -14,6 +18,5 @@ import '../styles/forms.css';
 	<label for="password">Password</label>
 	<input name="password" type="password" autocomplete="current-password" />
 	<button>Login</button>
-	<br />
-	<a href="/register">Register Instead</a>
+	<a href="/register" class="register">Register Instead</a>
 </form>
