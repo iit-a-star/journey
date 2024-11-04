@@ -15,12 +15,9 @@ let error: Error | undefined;
 if (Astro.request.method == 'POST') {
 	setDB(Astro.locals.runtime?.env?.DB);
 
-	console.log('Attempting to log in...');
 	const token = await tryLogin(Astro.request).catch(e => {
 		error = e;
-		console.error(e);
 	});
-	console.log('Token:', token);
 	if (token) {
 		Astro.cookies.set('token', token, { expires: new Date(Date.now() + 3600_000 * 24 * 28) });
 		return Astro.redirect('/accounts');
