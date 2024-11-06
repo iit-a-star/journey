@@ -2,6 +2,8 @@ import type { AstroCookies, AstroGlobal } from 'astro';
 import { createHash, randomBytes } from 'node:crypto';
 import type { Profile, ProfileType } from './api/profiles.js';
 import { getProfile } from './api/profiles.js';
+import type { Transaction } from './api/transactions.js';
+import type { Account } from './api/accounts.js';
 
 export function hash(text: string): string {
 	return createHash('sha256').update(text).digest('hex');
@@ -80,4 +82,10 @@ export async function checkAdminAuth(astro: Readonly<AstroGlobal>, minType?: Pro
 	}
 
 	return profile;
+}
+
+export function defaultCategory(tx: Transaction, account: Account): string {
+	if (tx.memo?.toLowerCase().includes('invest')) return 'Investing';
+
+	return tx.from == account.id ? 'Withdraw' : 'Deposit';
 }

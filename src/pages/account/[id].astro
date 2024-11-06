@@ -2,7 +2,7 @@
 import { getAccount, getTransactions, setDB, sumTransactions } from '../../api';
 import TransactionLI from '../../components/TransactionLI.astro';
 import Main from '../../layouts/Main.astro';
-import { currentUser, textToColor } from '../../utils';
+import { currentUser, defaultCategory, textToColor } from '../../utils';
 
 setDB(Astro.locals.runtime?.env?.DB);
 
@@ -28,7 +28,7 @@ const balance = sumTransactions(transactions, account.id);
 
 const mobile = false;
 
-const categories = Object.entries(transactions ? Object.groupBy(transactions, ({ from, metadata: { category } }) => category || (from == account.id ? ' Withdraw (auto)' : 'Deposit (auto)')) : {}).map(([category, txs]) => [category, sumTransactions(txs)]) as [string, number][];
+const categories = Object.entries(transactions ? Object.groupBy(transactions, (tx) => tx.metadata.category || defaultCategory(tx, account)) : {}).map(([category, txs]) => [category, sumTransactions(txs)]) as [string, number][];
 
 const colors = new Map(categories.map(([name]) => [name, textToColor(name)]));
 
