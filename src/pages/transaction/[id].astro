@@ -1,9 +1,9 @@
 ---
 import { Account, getAccount, getProfileAccounts } from '../../api';
 import { setDB } from '../../api/common';
-import { getTransaction } from '../../api/transactions';
+import { getTransaction, updateTransactionMetadata } from '../../api/transactions';
 import Main from '../../layouts/Main.astro';
-import { currentUser } from '../../utils';
+import { checkParams, currentUser, parseBody } from '../../utils';
 
 setDB(Astro.locals.runtime?.env?.DB);
 
@@ -28,6 +28,17 @@ if (!accounts.some(({ id }) => tx?.from == id || tx?.to == id)) {
 	return Astro.rewrite('/403');
 }
 
+if(Astro.request.method == 'POST') {
+	const body = await parseBody<Record<'category', string>>(Astro.request.clone());
+	try {
+		checkParams(body, 'category');
+	} catch {
+		return Astro.rewrite('/400');
+	}
+
+	updateTransactionMetadata(tx.id, body);
+}
+
 const from = (await getAccount(tx.from).catch(() => null)) || ({} as Partial<Account>);
 const to = (await getAccount(tx.to).catch(() => null)) || ({} as Partial<Account>);
 ---
@@ -40,5 +51,15 @@ const to = (await getAccount(tx.to).catch(() => null)) || ({} as Partial<Account
 		<p>Amount: ${tx.amount}</p>
 		<p>Time: {new Date(tx.timestamp).toLocaleString()}</p>
 		<p>Memo: {tx.memo}</p>
+		<br />
+		<form method="post">
+			<p>Category: <input name="category" value={tx.metadata.category} /></p>
+			<button id="save" style="display:none">Save</button>
+		</form>
 	</div>
+	<script>
+		document.querySelectorAll('input')!.forEach(input => input.addEventListener('change', () => {
+			document.querySelector<HTMLButtonElement>('#save')!.style.display = 'block';
+		}));
+	</script>
 </Main>

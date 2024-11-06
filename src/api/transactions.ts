@@ -2,7 +2,7 @@ import { randomHex } from '../utils.js';
 import { getDB } from './common.js';
 
 export interface TransactionMetadata {
-	category: string;
+	category?: string;
 }
 
 export interface Transaction {
@@ -52,13 +52,19 @@ export async function getTransactions(account: string): Promise<Transaction[] | 
 	return results;
 }
 
-export function getTransaction(id: string): Promise<Transaction | null> {
-	return getDB().prepare('select * from transactions where id=?').bind(id).first();
+export async function getTransaction(id: string): Promise<Transaction | null> {
+	const tx: Record<string, string> | null = await getDB().prepare('select * from transactions where id=?').bind(id).first();
+	if (tx) tx.metadata = JSON.parse(tx.metadata);
+	return tx as Transaction | null;
 }
 
 export async function addTransaction(from: string, to: string, amount: number, memo?: string): Promise<void> {
 	const id = randomHex(32);
 	await getDB().prepare('insert into transactions (id, "from", "to", amount, memo) values (?,?,?,?,?)').bind(id, from, to, amount, memo).run();
+}
+
+export async function updateTransactionMetadata(id: string, metadata: TransactionMetadata): Promise<void> {
+	await getDB().prepare('update transactions set metadata=? where id=?').bind(JSON.stringify(metadata), id).run();
 }
 
 export function sumTransactions(transactions?: Transaction[] | null, id?: string) {
