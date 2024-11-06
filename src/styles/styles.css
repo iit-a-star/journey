@@ -86,6 +86,8 @@ button:hover {
 }
 
 input {
+	border: none;
+	box-shadow: var(--bg-shadow);
 	border-radius: var(--bg-radius);
 }
 
