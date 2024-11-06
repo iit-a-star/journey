@@ -74,7 +74,7 @@ const { title, navTitle = '', profile = await currentUser(Astro.cookies) } = Ast
 			}
 
 			document.body.addEventListener('keydown', e => {
-				if (e.key == 'J' && e.shiftKey) {
+				if (e.key == 'J' && e.shiftKey && e.ctrlKey) {
 					e.preventDefault();
 					i ? stobe_stop() : stobe_start();
 				}

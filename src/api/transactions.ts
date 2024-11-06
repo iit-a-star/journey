@@ -35,7 +35,7 @@ export interface Transaction {
 	 * Metadata about the transaction.
 	 * Stored as JSON.
 	 */
-	readonly metadata: TransactionMetadata;
+	metadata: TransactionMetadata;
 
 	/**
 	 * Optional comment on the transaction

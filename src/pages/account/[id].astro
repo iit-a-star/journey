@@ -28,7 +28,7 @@ const balance = sumTransactions(transactions, account.id);
 
 const mobile = false;
 
-const categories = Object.entries(transactions ? Object.groupBy(transactions, ({ id, metadata: { category } }) => category || '') : {}).map(([category, txs]) => [category, sumTransactions(txs)]) as [string, number][];
+const categories = Object.entries(transactions ? Object.groupBy(transactions, ({ from, metadata: { category } }) => category || (from == account.id ? ' Withdraw (auto)' : 'Deposit (auto)')) : {}).map(([category, txs]) => [category, sumTransactions(txs)]) as [string, number][];
 
 const colors = new Map(categories.map(([name]) => [name, textToColor(name)]));
 
@@ -100,7 +100,6 @@ import { capitalize } from 'utilium';
 							transform="scale(1, -1) translate(0, -1)"
 							x-category={name}
 							x-amount={total}
-							
 						/>)}
 					</svg>
 				</div>

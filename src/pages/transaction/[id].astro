@@ -36,8 +36,8 @@ if(Astro.request.method == 'POST') {
 		return Astro.rewrite('/400');
 	}
 
-	console.log('Updating tx metadata:', JSON.stringify(body))
-	updateTransactionMetadata(tx.id, body);
+	await updateTransactionMetadata(tx.id, body);
+	tx.metadata = body;
 }
 
 const from = (await getAccount(tx.from).catch(() => null)) || ({} as Partial<Account>);
@@ -59,7 +59,7 @@ const to = (await getAccount(tx.to).catch(() => null)) || ({} as Partial<Account
 		</form>
 	</div>
 	<script>
-		document.querySelectorAll('input')!.forEach(input => input.addEventListener('change', () => {
+		document.querySelectorAll('input')!.forEach(input => input.addEventListener('keydown', () => {
 			document.querySelector<HTMLButtonElement>('#save')!.style.display = 'block';
 		}));
 	</script>
