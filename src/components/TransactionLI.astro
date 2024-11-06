@@ -11,16 +11,6 @@ const { transaction, account, memoColor } = Astro.props;
 
 const url = new URL(Astro.request.url);
 
-let colorPercent = 25;
-try {
-	let maybe = parseInt(url.searchParams.get('colors') ?? '0')
-	if(!Number.isNaN(maybe) && maybe >= 25) {
-		colorPercent = maybe;
-	}
-} catch {
-
-}
-
 const from = (await getAccount(transaction.from).catch(() => null)) || { id: null, name: null };
 const to = (await getAccount(transaction.to).catch(() => null)) || { id: null, name: null };
 const { amount, timestamp, memo, id } = transaction;
@@ -31,7 +21,7 @@ import '../styles/transaction-li.css';
 
 {
 	account ? <li>
-		<p class="memo" style={memoColor && url.searchParams.has('colors') ? `color:color-mix(in hsl, var(--text-color), ${memoColor} ${colorPercent}%)` : ''}>{transaction.memo}</p>
+		<p class="memo" style={memoColor && url.searchParams.has('colors') ? `color:color-mix(in hsl, var(--text-color), ${memoColor} 100%)` : ''}>{transaction.memo}</p>
 		<p class="amount">
 			{from.id == account ? '-' : '+'} ${transaction.amount}
 		</p>
