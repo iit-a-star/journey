@@ -49,7 +49,10 @@ export async function countTransactions(): Promise<number> {
 
 export async function getTransactions(account: string): Promise<Transaction[] | null> {
 	const { results } = await getDB().prepare('select * from transactions where "from"=? or "to"=?').bind(account, account).all<Transaction>();
-	return results;
+	return results.map(tx => ({
+		...tx,
+		metadata: JSON.parse(tx.metadata as string),
+	}));
 }
 
 export async function getTransaction(id: string): Promise<Transaction | null> {

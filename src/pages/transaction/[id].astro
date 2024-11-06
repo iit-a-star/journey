@@ -36,6 +36,7 @@ if(Astro.request.method == 'POST') {
 		return Astro.rewrite('/400');
 	}
 
+	console.log('Updating tx metadata:', JSON.stringify(body))
 	updateTransactionMetadata(tx.id, body);
 }
 
