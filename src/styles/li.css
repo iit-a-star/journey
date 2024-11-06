@@ -2,7 +2,8 @@ ul {
 	overflow-y: scroll;
 }
 
-li {
+li,
+.li {
 	display: flex;
 	flex-direction: row;
 	width: max(var(--li-min-width), calc(100% - calc(var(--li-margin) * 2)));

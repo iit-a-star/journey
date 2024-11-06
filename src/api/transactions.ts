@@ -60,3 +60,10 @@ export async function addTransaction(from: string, to: string, amount: number, m
 	const id = randomHex(32);
 	await getDB().prepare('insert into transactions (id, "from", "to", amount, memo) values (?,?,?,?,?)').bind(id, from, to, amount, memo).run();
 }
+
+export function sumTransactions(transactions?: Transaction[] | null, id?: string) {
+	if (!transactions) {
+		return 0;
+	}
+	return transactions.reduce((total: number, tx: Transaction) => total + (tx.from == id ? -1 : 1) * tx.amount, 0);
+}

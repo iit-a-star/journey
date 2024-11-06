@@ -7,6 +7,25 @@ export function hash(text: string): string {
 	return createHash('sha256').update(text).digest('hex');
 }
 
+/**
+ * Converts a string into a color
+ */
+export function textToColor(text: string) {
+	// Create a simple hash from the input string
+	let hash = 0;
+	for (let i = 0; i < text.length; i++) {
+		hash = text.charCodeAt(i) + ((hash << 5) - hash);
+	}
+
+	// Convert the hash to an RGB color
+	const r = (hash >> 0) & 0xff;
+	const g = (hash >> 8) & 0xff;
+	const b = (hash >> 16) & 0xff;
+
+	// Format the RGB color as a hex string
+	return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+}
+
 export function randomHex(length: number): string {
 	return randomBytes(length / 2).toString('hex');
 }
