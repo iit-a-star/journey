@@ -29,6 +29,9 @@ const balance = sumTransactions(transactions, account.id);
 const mobile = false;
 
 const categories = Object.entries(transactions ? Object.groupBy(transactions, ({ id, metadata: { category } }) => category || '') : {}).map(([category, txs]) => [category, sumTransactions(txs)]) as [string, number][];
+
+const colors = new Map(categories.map(([name]) => [name, textToColor(name)]));
+
 const maxHeight = categories.reduce((max, [_, value]) => Math.max(max, value), 0);
 
 import '../../styles/li.css';
@@ -93,7 +96,7 @@ import { capitalize } from 'utilium';
 							x={2*i}
 							width="1"
 							height={Math.max(total / maxHeight, 0.1)}
-							style={'fill:' + textToColor(name)}
+							style={'fill:' + colors.get(name)}
 							transform="scale(1, -1) translate(0, -1)"
 							x-category={name}
 							x-amount={total}
@@ -108,7 +111,7 @@ import { capitalize } from 'utilium';
 				<p class="timestamp">Time</p>
 				<p class="details">Details</p>
 			</li>
-			{transactions.map(tx => <TransactionLI transaction={tx} account={account.id} />)}
+			{transactions.map(tx => <TransactionLI transaction={tx} account={account.id} memoColor={colors.get(tx.metadata.category!)} />)}
 		</ul>}
 
 		<br />
