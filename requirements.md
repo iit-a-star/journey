@@ -55,11 +55,16 @@ Create a budgeting assistant that helps people spend money wisely and caters to 
 
 ## 4. Nonfunctional Requirements
 
--   _Work in progress_
+1. "Open New Account" buttons are in sync with the website.
+2. Transactions between different accounts for a user are connected and live.
+3. Cloudflare keeps the users and their accounts secure.
+4. When looking for a certain account's status, you can see their database by putting their ID in their link.
 
 ##5. References
 
 -   [Astro](https://astro.build/)
 -   [Draw.io](https://draw.io/)
+-   [Font Awesome](https://fontawesome.com/icons)
 -   [MarkDown](https://markdownguide.org/)
+-   [Shadowlord](https://noeldelgado.github.io/shadowlord/#8080d7)
 -   [TypeScript](https://www.typescriptlang.org/)
