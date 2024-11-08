@@ -1,28 +1,49 @@
 /* Default styles to be used (does not include specific element styling) */
+
 :root {
 	--hue: 32;
 	--hue-nav: 20;
-	--_bg-color: var(--hue), 50%, 25%;
-	--text-color: hsl(var(--hue), 100%, 90%, 0.8);
-	--text-shadow: 0 0 7px hsl(var(--hue), 100%, 50%);
-	--font-family: sans-serif;
-	--font-size: 16px;
-	--bg-color: hsl(var(--_bg-color));
-	--button-color: hsl(var(--hue), 100%, 70%, 0.5);
-	--bg-gradient-dark: hsl(var(--hue), 50%, 0%);
-	--bg-gradient-light: hsl(var(--hue), 70%, 70%, 0.5);
-	--bg-color-alt: #252525;
-	--bg-shadow: 0 0 6px hsl(var(--hue), 100%, 80%);
-	--hover-shadow: 0 0 8px hsl(var(--hue), 100%, 90%);
-	--bg-radius: 4px;
-	--bg-translucent-text: #2225;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--text-color: hsl(var(--hue), 100%, 90%, 0.8);
+		--text-shadow: 0 0 7px hsl(var(--hue), 100%, 50%);
+		--font-family: sans-serif;
+		--font-size: 16px;
+		--bg-color: hsl(var(--hue), 50%, 25%);
+		--button-color: hsl(var(--hue), 100%, 70%, 0.5);
+		--bg-color-alt: #252525;
+		--bg-shadow: 0 0 6px hsl(var(--hue), 100%, 80%);
+		--hover-shadow: 0 0 8px hsl(var(--hue), 100%, 90%);
+		--bg-radius: 4px;
+		--bg-translucent-text: #2225;
+		--text-color-alt: #ccc;
+	}
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--text-color: hsl(var(--hue), 100%, 10%, 0.8);
+		--text-shadow: 0 0 7px hsl(var(--hue), 100%, 50%, 0);
+		--font-family: sans-serif;
+		--font-size: 16px;
+		--bg-color: hsl(var(--hue), 50%, 75%);
+		--button-color: hsl(var(--hue), 100%, 30%, 0.5);
+		--bg-color-alt: #ccc;
+		--bg-shadow: 0 0 6px hsl(var(--hue), 100%, 20%, 0);
+		--hover-shadow: 0 0 8px hsl(var(--hue), 100%, 10%);
+		--bg-radius: 4px;
+		--bg-translucent-text: #ccc5;
+		--text-color-alt: #444;
+	}
 }
 
 * {
 	scrollbar-color: var(--text-color);
 	scrollbar-width: thin;
 	accent-color: var(--text-color);
-	color-scheme: only dark;
+	color-scheme: light dark;
 	color: var(--text-color);
 	font-family: sans-serif;
 }
@@ -52,7 +73,7 @@ select {
 table,
 tr,
 td {
-	border: 1px solid white;
+	border: 1px solid var(--text-color);
 	border-collapse: collapse;
 }
 
@@ -70,18 +91,18 @@ td {
 }
 
 button {
-	background: radial-gradient(ellipse at center, var(--bg-gradient-dark) 0, var(--button-color) 150%);
+	background-color: var(--button-color);
 	box-shadow: var(--bg-shadow);
 	border-radius: var(--bg-radius);
 	cursor: pointer;
-	border: 0;
+	border: 1px solid var(--text-color);
 	padding: 5px 1em;
 	margin-left: 1em;
 	margin-right: 1em;
 }
 
 button:hover {
-	background: radial-gradient(ellipse at center, var(--bg-gradient-dark) 0, var(--button-color) 100%);
+	background-color: var(--button-color);
 	box-shadow: var(--hover-shadow);
 }
 
