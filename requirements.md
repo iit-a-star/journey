@@ -52,6 +52,7 @@ Create a budgeting assistant that helps people spend money wisely and caters to 
 6. The user clicks on a new page to add a transaction.
 7. The user clicks on a new page to talk to the AI assistant to figure out its best plan.
 8. The user sees their current budgeting plan on a new page.
+9. User is able to switch from light to dark mode and vice versa with a click of a button.
 
 ## 4. Nonfunctional Requirements
 
