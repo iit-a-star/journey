@@ -34,7 +34,7 @@ Create a budgeting assistant that helps people spend money wisely and caters to 
 
 -   Demo Project for demo purposes, not hosted anywhere
 -   Implementing AI
--   No data validations, only accepting data from the users
+-   No data validations, only accepting data from Users
 
 ## 2. Business Drivers
 
@@ -44,22 +44,25 @@ Create a budgeting assistant that helps people spend money wisely and caters to 
 
 ## 3. Functional Requirements
 
-1. The user logs in to their account on the website
-2. The user registers for a new account on the website.
-3. The user clicks on a new page to see all their transactions on their account
-4. The user clicks on a new page to see their profile and all the data on it.
-5. The admin(us) checks on the condition of the website.
-6. The user clicks on a new page to add a transaction.
-7. The user clicks on a new page to talk to the AI assistant to figure out its best plan.
-8. The user sees their current budgeting plan on a new page.
-9. User is able to switch from light to dark mode and vice versa with a click of a button.
+1. Users log on to their account.
+2. Users register for a new account.
+3. Users see all their transactions on their account.
+4. Users view their profile and all the data on it.
+5. Outside users can view other users's profiles, but they can't see the other user's email used and can't edit their profile.
+6. Admin check on the condition of the website through a database.
+7. Users add or remove a transaction to an account not listed in user's accounts available.
+8. Users transfer funds in a transaction from one account to another account they have.
+9. Users speak to the AI assistant to figure out its best plan.
+10. Users view their current budgeting plan on a new page.
+11. Users switch from light to dark mode and vice versa.
+12. Bar graphs the users see categorize the transactions of an account.
 
 ## 4. Nonfunctional Requirements
 
 1. "Open New Account" buttons are in sync with the website.
 2. Transactions between different accounts for a user are connected and live.
-3. Cloudflare keeps the users and their accounts secure.
-4. When looking for a certain account's status, you can see their database by putting their ID in their link.
+3. Cloudflare keeps Users and their accounts secure.
+4. Non-admin users are unauthorized for going to specific domains in the website.
 
 ##5. References
 
