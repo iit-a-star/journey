@@ -92,7 +92,6 @@ td {
 
 button {
 	background-color: var(--button-color);
-	box-shadow: var(--bg-shadow);
 	border-radius: var(--bg-radius);
 	cursor: pointer;
 	border: 1px solid var(--text-color);
