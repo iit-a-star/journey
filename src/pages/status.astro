@@ -5,7 +5,7 @@ import Main from '../layouts/Main.astro';
 const numProfiles = await countProfiles(), numAccounts = await countAccounts(), numTx = await countTransactions();
 ---
 
-<Main title="Status">
+<Main title="Status" navTitle="Status">
 	<p>Current revision: {$revision}</p>
 	<p>Database is working: {Astro.locals.runtime?.env?.DB ? 'Yes' : 'No'}</p>
 	<p>Profiles: {numProfiles}</p>
