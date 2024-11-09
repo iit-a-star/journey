@@ -48,12 +48,12 @@ Create a budgeting assistant that helps people spend money wisely and caters to 
 2. Users register for a new account.
 3. Users see all their transactions on their account.
 4. Users view their profile and all the data on it.
-5. Outside users can view other users's profiles, but they can't see the other user's email used and can't edit their profile.
+5. Outside users can view most features other users' profiles except email address, and can't edit other users' profiles.
 6. Admin check on the condition of the website through a database.
 7. Users add or remove a transaction to an account not listed in user's accounts available.
 8. Users transfer funds in a transaction from one account to another account they have.
 9. Users speak to the AI assistant to figure out its best plan.
-10. Users view their current budgeting plan on a new page.
+10. Users view their current budgeting plan.
 11. Users switch from light to dark mode and vice versa.
 12. Bar graphs the users see categorize the transactions of an account.
 
@@ -66,9 +66,10 @@ Create a budgeting assistant that helps people spend money wisely and caters to 
 
 ##5. References
 
--   [Astro](https://astro.build/)
--   [Draw.io](https://draw.io/)
--   [Font Awesome](https://fontawesome.com/icons)
--   [MarkDown](https://markdownguide.org/)
--   [Shadowlord](https://noeldelgado.github.io/shadowlord/#8080d7)
--   [TypeScript](https://www.typescriptlang.org/)
+-   [Astro - Website Builder](https://astro.build/)
+-   [Draw.io - Wireframe Maker](https://draw.io/)
+-   [Figma - Design Maker](https://figma.com)
+-   [Font Awesome - Font Customized](https://fontawesome.com/icons)
+-   [MarkDown - Document Formatter](https://markdownguide.org/)
+-   [Shadowlord - Color Picker](https://noeldelgado.github.io/shadowlord/#8080d7)
+-   [TypeScript - Language Used](https://www.typescriptlang.org/)
