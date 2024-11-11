@@ -1,5 +1,5 @@
 ---
-import { addTransaction, createAccount, getAccount, getProfileAccounts, isValidAccountType, setDB } from '../../api';
+import { addTransaction, getProfileAccounts, setDB } from '../../api';
 import Main from '../../layouts/Main.astro';
 import { checkParams, currentUser, parseBody } from '../../utils';
 
@@ -24,7 +24,7 @@ const accounts = await getProfileAccounts(profile.id);
 try {
 	if (Astro.request.method == 'POST') {
 		// parse body
-		const body = await parseBody<{ memo?: string; amount: string; to: string; from: string }>(Astro.request);
+		const body = await parseBody<'memo' | 'amount' | 'to' | 'from'>(Astro.request);
 
 		checkParams(body, 'memo', 'amount', 'to', 'from');
 

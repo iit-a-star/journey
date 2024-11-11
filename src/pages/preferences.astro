@@ -1,7 +1,6 @@
 ---
-import Main from '../layouts/Main.astro';
-import LoginUI from '../components/Login.astro';
 import { setDB } from '../api/common';
+import Main from '../layouts/Main.astro';
 import { currentUser, parseBody } from '../utils';
 
 setDB(Astro.locals.runtime?.env?.DB);
@@ -13,9 +12,8 @@ if (!profile) {
 }
 
 if (Astro.request.method == 'POST') {
-	setDB(Astro.locals.runtime?.env?.DB);
 
-	const body = await parseBody<Record<'referrer' | 'PLACEHOLDER_1', string>>(Astro.request);
+	const body = await parseBody<'referrer' | 'PLACEHOLDER_1'>(Astro.request);
 
 	console.log('[ref]', body.referrer);
 

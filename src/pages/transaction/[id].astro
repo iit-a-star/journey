@@ -29,7 +29,7 @@ if (!accounts.some(({ id }) => tx?.from == id || tx?.to == id)) {
 }
 
 if(Astro.request.method == 'POST') {
-	const body = await parseBody<Record<'category', string>>(Astro.request.clone());
+	const body = await parseBody<'category'>(Astro.request.clone());
 	try {
 		checkParams(body, 'category');
 	} catch {
@@ -49,7 +49,7 @@ const to = (await getAccount(tx.to).catch(() => null)) || ({} as Partial<Account
 		margin-left: 20em;
 		display: grid;
 		gap: 1em 2em;
-		grid-template-columns: 10em 1fr;
+		grid-template-columns: max-content 1fr;
 	}
 
 	input {
@@ -66,6 +66,8 @@ const to = (await getAccount(tx.to).catch(() => null)) || ({} as Partial<Account
 </style>
 <Main title="View Transaction">
 	<div>
+		<p><button id="back">← Back</button></p>
+		<p></p>
 		<h4 class="label">Transaction</h4>
 		<h4>{tx.id}</h4>
 		<p class="label">From</p>
@@ -81,13 +83,19 @@ const to = (await getAccount(tx.to).catch(() => null)) || ({} as Partial<Account
 		<form method="post" style="display:contents">
 			<p class="label"><dfn title="How to categorize the transaction">Category</dfn></p>
 			<p><input name="category" value={tx.metadata.category} /></p>
-			<p></p>
-			<p><button id="save" disabled>Save</button></p>
+			
+			<p><a href=""><button id="save" disabled>Save</button></a></p>
 		</form>
 	</div>
 	<script>
 		document.querySelectorAll('input')!.forEach(input => input.addEventListener('keydown', () => {
 			document.querySelector<HTMLButtonElement>('#save')!.removeAttribute('disabled');
 		}));
+
+		document.querySelector('#back')!.addEventListener('click', e => {
+			e.preventDefault();
+			
+			location.href = new URL(location.href).searchParams.get('from')!;
+		});
 	</script>
 </Main>

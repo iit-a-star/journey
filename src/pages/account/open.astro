@@ -16,7 +16,7 @@ let error: string | undefined;
 try {
 	if (Astro.request.method == 'POST') {
 		// parse body
-		const body = await parseBody<{ name: string; type: string }>(Astro.request);
+		const body = await parseBody<'name' | 'type'>(Astro.request);
 
 		checkParams(body, 'name', 'type');
 

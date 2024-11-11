@@ -8,6 +8,7 @@
 @media (prefers-color-scheme: dark) {
 	:root {
 		--text-color: hsl(var(--hue), 100%, 90%, 0.8);
+		--nav-color: hsl(var(--hue-nav), 75%, 50%);
 		--text-shadow: 0 0 7px hsl(var(--hue), 100%, 50%);
 		--font-family: sans-serif;
 		--font-size: 16px;
@@ -91,7 +92,7 @@ td {
 }
 
 button {
-	background-color: var(--button-color);
+	background-color: var(--nav-color);
 	border-radius: var(--bg-radius);
 	cursor: pointer;
 	border: 1px solid var(--text-color);
@@ -101,11 +102,11 @@ button {
 }
 
 button:hover {
-	background-color: var(--button-color);
 	box-shadow: var(--hover-shadow);
 }
 
 button:disabled {
+	background-color: color-mix(in srgb, var(--nav-color), grey);
 	cursor: not-allowed;
 }
 
