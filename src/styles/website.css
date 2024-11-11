@@ -32,7 +32,7 @@ nav .title {
 
 nav a.home {
 	left: 1em;
-	width: 10em;
+	width: max-content;
 }
 
 nav a.profile {
@@ -43,13 +43,12 @@ nav a.profile {
 nav a.logout {
 	right: 1em;
 	text-align: right;
-	text-decoration: underline;
 }
 
 svg.icon {
 	display: inline;
-	width: 1em;
-	height: 1em;
+	width: 1.5em;
+	height: 1.5em;
 	fill: var(--text-color);
 	overflow: visible;
 }

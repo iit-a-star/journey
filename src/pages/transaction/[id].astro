@@ -43,24 +43,51 @@ if(Astro.request.method == 'POST') {
 const from = (await getAccount(tx.from).catch(() => null)) || ({} as Partial<Account>);
 const to = (await getAccount(tx.to).catch(() => null)) || ({} as Partial<Account>);
 ---
+<style>
+	div {
+		margin-top: 10em;
+		margin-left: 20em;
+		display: grid;
+		gap: 1em 2em;
+		grid-template-columns: 10em 1fr;
+	}
 
+	input {
+		padding: 0.5em;
+	}
+
+	.label {
+		text-align: right;
+	}
+
+	div * {
+		margin: 0;
+	}
+</style>
 <Main title="View Transaction">
 	<div>
-		<h4>Transaction {tx.id}</h4>
-		<p>From: {from.profile == profile.id ? <a href={`/account/${from.id}`}>{from.name || <em>Unknown</em>}</a> : <span>{from.id || <em>Unknown</em>}</span>}</p>
-		<p>To: {to.profile == profile.id ? <a href={`/account/${to.id}`}>{to.name || <em>Unknown</em>}</a> : <span>{to.id || <em>Unknown</em>}</span>}</p>
-		<p>Amount: ${tx.amount}</p>
-		<p>Time: {new Date(tx.timestamp).toLocaleString()}</p>
-		<p>Memo: {tx.memo}</p>
-		<br />
-		<form method="post">
-			<p>Category: <input name="category" value={tx.metadata.category} /></p>
-			<button id="save" style="display:none">Save</button>
+		<h4 class="label">Transaction</h4>
+		<h4>{tx.id}</h4>
+		<p class="label">From</p>
+		<p>{from.profile == profile.id ? <a href={`/account/${from.id}`}>{from.name || <em>Unknown</em>}</a> : <span>{from.id || <em>Unknown</em>}</span>}</p>
+		<p class="label">To</p>
+		<p>{to.profile == profile.id ? <a href={`/account/${to.id}`}>{to.name || <em>Unknown</em>}</a> : <span>{to.id || <em>Unknown</em>}</span>}</p>
+		<p class="label">Amount</p>
+		<p>${tx.amount}</p>
+		<p class="label">Time</p>
+		<p>{new Date(tx.timestamp).toLocaleString()}</p>
+		<p class="label">Memo</p>
+		<p>{tx.memo}</p>
+		<form method="post" style="display:contents">
+			<p class="label"><dfn title="How to categorize the transaction">Category</dfn></p>
+			<p><input name="category" value={tx.metadata.category} /></p>
+			<p></p>
+			<p><button id="save" disabled>Save</button></p>
 		</form>
 	</div>
 	<script>
 		document.querySelectorAll('input')!.forEach(input => input.addEventListener('keydown', () => {
-			document.querySelector<HTMLButtonElement>('#save')!.style.display = 'block';
+			document.querySelector<HTMLButtonElement>('#save')!.removeAttribute('disabled');
 		}));
 	</script>
 </Main>

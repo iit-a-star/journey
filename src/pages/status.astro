@@ -6,9 +6,12 @@ const numProfiles = await countProfiles(), numAccounts = await countAccounts(), 
 ---
 
 <Main title="Status" navTitle="Status">
-	<p>Current revision: {$revision}</p>
-	<p>Database is working: {Astro.locals.runtime?.env?.DB ? 'Yes' : 'No'}</p>
-	<p>Profiles: {numProfiles}</p>
-	<p>Accounts: {numAccounts}</p>
-	<p>Transactions: {numTx}</p>
+	<div class="center">
+		<p>Current revision: {$revision}</p>
+		<p>Database is working: {Astro.locals.runtime?.env?.DB ? 'Yes' : 'No'}</p>
+		<p>Profiles: {numProfiles}</p>
+		<p>Accounts: {numAccounts}</p>
+		<p>Transactions: {numTx}</p>
+	</div>
+	
 </Main>

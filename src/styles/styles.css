@@ -105,6 +105,10 @@ button:hover {
 	box-shadow: var(--hover-shadow);
 }
 
+button:disabled {
+	cursor: not-allowed;
+}
+
 input {
 	border: none;
 	box-shadow: var(--bg-shadow);
@@ -118,6 +122,10 @@ input[type='text'] {
 dfn {
 	font-style: normal;
 	border-bottom: 1px hsla(200, 100%, 90%, 0.8) dotted;
+}
+
+dfn:hover {
+	cursor: help;
 }
 
 input:hover {
