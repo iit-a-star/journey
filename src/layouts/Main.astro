@@ -105,7 +105,7 @@ try {
 		<slot />
 		<footer>
 			<p class="left">Copyright &copy; {users.length 
-				? <span>{users.map(user => user.name).join(', ')}</span>
+				? <span>{users.map(user => <span><a href={user.html_url}>{user.name || user.login}</a>{user == users.at(-1) ? '' : ', '}</span>)}</span>
 				: <a href="/github/contributors">contributors</a>}
 			</p>
 			<p class="right"></p>
