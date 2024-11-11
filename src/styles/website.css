@@ -45,10 +45,16 @@ nav a.logout {
 	text-align: right;
 }
 
-svg.icon {
-	display: inline;
+nav svg.icon {
 	width: 1.5em;
 	height: 1.5em;
+	vertical-align: sub;
+}
+
+svg.icon {
+	display: inline;
+	width: 1em;
+	height: 1em;
 	fill: var(--text-color);
 	overflow: visible;
 }
