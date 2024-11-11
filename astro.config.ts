@@ -13,6 +13,8 @@ export default defineConfig({
 	site: 'https://iit-journey.pages.dev/',
 	redirects: {
 		'/.well-known/change-password': '/profile?edit=password',
+		'/github': 'https://github.com/iit-a-star/journey',
+		'/github/[...rest]': 'https://github.com/iit-a-star/journey/[...rest]',
 	},
 	markdown: {
 		shikiConfig: {
