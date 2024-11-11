@@ -1,3 +1,4 @@
+import type { AstroCookies } from 'astro';
 import { checkParams, hash, parseBody, randomHex } from '../utils.js';
 import { getDB, type Access, type KeyValue } from './common.js';
 
@@ -390,11 +391,11 @@ export function sendMailToUser({ name, email }: { name: string; email?: string }
 	return sendMail(`${name} <${email}>`, subject, `${name},\n\n${contents}\n\nBest,\nThe Journey dev team`);
 }
 
-export async function tryLogin(request: Request) {
-	const body = await parseBody<{ email: string; password: string }>(request);
+export async function tryLogin(request: Request, cookies: AstroCookies) {
+	const body = await parseBody<'email' | 'password' | 'remember'>(request);
 	if (!isValidProfileAttribute('email', body.email)) throw 'You must enter a valid email.';
 
-	checkParams(body, 'email', 'password');
+	checkParams(body, 'email', 'password', 'remember');
 
 	const profile = await getProfile('email', body.email);
 
@@ -410,5 +411,11 @@ export async function tryLogin(request: Request) {
 		throw 'Incorrect password';
 	}
 
-	return await login(profile.id);
+	const token = await login(profile.id);
+	cookies.set('token', token, { expires: new Date(Date.now() + 3600_000 * 24 * 28) });
+	cookies.set('remember', body.email, { expires: new Date(Date.now() + 3600_000 * 24 * 28) });
+
+	console.log(body.remember);
+
+	return token;
 }

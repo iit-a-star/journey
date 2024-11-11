@@ -44,13 +44,13 @@ export async function currentUser(cookies: AstroCookies): Promise<Profile | unde
 	}
 }
 
-export async function parseBody<V extends Record<string, FormDataEntryValue>>(request: Request): Promise<V> {
+export async function parseBody<V extends string>(request: Request): Promise<Record<V, string>> {
 	switch (request.headers.get('Content-Type')) {
 		case 'application/json':
 			return await request.json();
 		case 'application/x-www-form-urlencoded':
 			const formData = await request.formData();
-			return Object.fromEntries(formData.entries()) as V;
+			return Object.fromEntries(formData.entries()) as Record<V, string>;
 		default:
 			const text = await request.text();
 			return JSON.parse(text);

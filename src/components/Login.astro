@@ -5,13 +5,30 @@ interface Props {
 
 import '../styles/forms.css';
 ---
+<style>
+	div {
+		margin-top: 1em;
+		display: inline-block;
+	}
+
+	div * {
+		display: inline;
+		margin: 0;
+		width: auto;
+	}
+</style>
 <form method="post">
 	<h1>Login</h1>
 	{Astro.props.error && <div class="error">{Astro.props.error}</div>}
 	<label for="email">Email</label>
-	<input name="email" type="email" autocomplete="email" />
+	<input name="email" type="email" autocomplete="email" value={Astro.cookies.get('remember')?.value} />
 	<label for="password">Password</label>
 	<input name="password" type="password" autocomplete="current-password" />
 	<button>Login</button>
+	<div>
+		<input name="remember" type="hidden" value="" />
+		<input name="remember" type="checkbox" checked={!!Astro.cookies.get('remember')} />
+		<label for="remember">Remember Email</label>
+	</div>
 	<a href="/register" class="switch">Register Instead</a>
 </form>

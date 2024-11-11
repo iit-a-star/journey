@@ -8,11 +8,10 @@ let error: Error | undefined;
 if (Astro.request.method == 'POST') {
 	setDB(Astro.locals.runtime?.env?.DB);
 
-	const token = await tryLogin(Astro.request).catch(e => {
+	const token = await tryLogin(Astro.request, Astro.cookies).catch(e => {
 		error = e;
 	});
 	if (token) {
-		Astro.cookies.set('token', token, { expires: new Date(Date.now() + 3600_000 * 24 * 28) });
 		return Astro.redirect('/accounts');
 	}
 }
