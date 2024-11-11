@@ -15,11 +15,18 @@ setDB(Astro.locals.runtime?.env?.DB);
 
 const { title, navTitle = '', profile = await currentUser(Astro.cookies) } = Astro.props;
 
-const contributors = await fetch('https://api.github.com/repos/iit-a-star/journey/contributors').then(res => res.json()).catch(() => []) as Contributor[];
+let contributors: Contributor[], top: User | null;
+try {
+	contributors = await fetch('https://api.github.com/repos/iit-a-star/journey/contributors').then(res => res.json()).catch(() => []) as Contributor[];
 
-const topContributor = contributors.reduce((top: Contributor | null, current) => top && top.contributions >= current.contributions ? top : current);
+	const topContributor = contributors.reduce((top: Contributor | null, current) => top && top.contributions >= current.contributions ? top : current);
 
-const top = await fetch(topContributor.url).then(res => res.json()).catch(() => null) as User | null; 
+	top = await fetch(topContributor.url).then(res => res.json()).catch(() => null) as User | null;
+} catch {
+	contributors = [];
+	top = null;
+}
+ 
 ---
 
 <html lang="en">
