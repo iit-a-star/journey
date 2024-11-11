@@ -15,7 +15,7 @@ setDB(Astro.locals.runtime?.env?.DB);
 
 const { title, navTitle = '', profile = await currentUser(Astro.cookies) } = Astro.props;
 
-let contributors: Contributor[], top: User | null;
+let users: User[];
 try {
 	const requestInit: RequestInit = {
 		headers: {
@@ -23,15 +23,16 @@ try {
 		}
 	};
 
-	contributors = await fetch('https://api.github.com/repos/iit-a-star/journey/contributors', requestInit).then(res => res.json()).catch(() => []) as Contributor[];
+	users = await fetch('https://api.github.com/repos/iit-a-star/journey/contributors', requestInit)
+		.then(res => res.json())
+		.then((contributors: Contributor[]) => Promise.all(contributors
+			.sort((a, b) => a.contributions > b.contributions ? -1 : 1)
+			.map(({ url }) => fetch(url, requestInit).then(res => res.json()) as Promise<User>)
+		))
+		.catch(() => []);
 
-	const topContributor = contributors.reduce((top: Contributor | null, current) => top && top.contributions >= current.contributions ? top : current);
-
-	top = await fetch(topContributor.url, requestInit).then(res => res.json()).catch(() => null) as User | null;
-} catch (e) {
-	console.log(e);
-	contributors = [];
-	top = null;
+} catch {
+	users = [];
 }
  
 ---
@@ -103,8 +104,8 @@ try {
 		</script>
 		<slot />
 		<footer>
-			<p class="left">Copyright &copy; {top && contributors.length 
-				? <span>{top.name} and <a href="/github/contributors">{contributors.length - 1} other contributors</a></span>
+			<p class="left">Copyright &copy; A*: {users.length 
+				? <span>{users.map(user => user.name).join(', ')}</span>
 				: <a href="/github/contributors">contributors</a>}
 			</p>
 			<p class="right"></p>
