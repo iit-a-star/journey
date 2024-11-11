@@ -17,12 +17,19 @@ const { title, navTitle = '', profile = await currentUser(Astro.cookies) } = Ast
 
 let contributors: Contributor[], top: User | null;
 try {
-	contributors = await fetch('https://api.github.com/repos/iit-a-star/journey/contributors').then(res => res.json()).catch(() => []) as Contributor[];
+	const requestInit: RequestInit = {
+		headers: {
+			'User-Agent': 'github.com/iit-a-star/financial-journey'
+		}
+	};
+
+	contributors = await fetch('https://api.github.com/repos/iit-a-star/journey/contributors', requestInit).then(res => res.json()).catch(() => []) as Contributor[];
 
 	const topContributor = contributors.reduce((top: Contributor | null, current) => top && top.contributions >= current.contributions ? top : current);
 
-	top = await fetch(topContributor.url).then(res => res.json()).catch(() => null) as User | null;
-} catch {
+	top = await fetch(topContributor.url, requestInit).then(res => res.json()).catch(() => null) as User | null;
+} catch (e) {
+	console.log(e);
 	contributors = [];
 	top = null;
 }
@@ -96,7 +103,10 @@ try {
 		</script>
 		<slot />
 		<footer>
-			<p class="left">Copyright &copy; {top && contributors.length ? <span>{top.name} and <a href="/github/contributors">{contributors.length - 1} other contributors</a></span> : <a href="/github/contributors">contributors</a>} </p>
+			<p class="left">Copyright &copy; {top && contributors.length 
+				? <span>{top.name} and <a href="/github/contributors">{contributors.length - 1} other contributors</a></span>
+				: <a href="/github/contributors">contributors</a>}
+			</p>
 			<p class="right"></p>
 		</footer>
 	</body>
