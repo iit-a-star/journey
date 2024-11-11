@@ -3,6 +3,7 @@ import { Profile, setDB } from '../api';
 import '../styles/styles.css';
 import '../styles/website.css';
 import { currentUser } from '../utils';
+import type { Contributor, User } from '../api/github'
 
 interface Props {
 	title: string;
@@ -13,6 +14,12 @@ interface Props {
 setDB(Astro.locals.runtime?.env?.DB);
 
 const { title, navTitle = '', profile = await currentUser(Astro.cookies) } = Astro.props;
+
+const contributors = await fetch('https://api.github.com/repos/iit-a-star/journey/contributors').then(res => res.json()).catch(() => []) as Contributor[];
+
+const topContributor = contributors.reduce((top: Contributor | null, current) => top && top.contributions >= current.contributions ? top : current);
+
+const top = await fetch(topContributor.url).then(res => res.json()).catch(() => null) as User | null; 
 ---
 
 <html lang="en">
@@ -82,7 +89,7 @@ const { title, navTitle = '', profile = await currentUser(Astro.cookies) } = Ast
 		</script>
 		<slot />
 		<footer>
-			<p class="left">Copyright &copy; James Prevett and <a href="/github/contributors">other contributors</a></p>
+			<p class="left">Copyright &copy; {top && contributors.length ? <span>{top.name} and <a href="/github/contributors">{contributors.length - 1} other contributors</a></span> : <a href="/github/contributors">contributors</a>} </p>
 			<p class="right"></p>
 		</footer>
 	</body>
