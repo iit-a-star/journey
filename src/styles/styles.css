@@ -8,7 +8,7 @@
 @media (prefers-color-scheme: dark) {
 	:root {
 		--text-color: hsl(var(--hue), 100%, 90%, 0.8);
-		--nav-color: hsl(var(--hue-nav), 75%, 50%);
+		--nav-color: hsl(var(--hue-nav), 75%, 51%);
 		--text-shadow: 0 0 7px hsl(var(--hue), 100%, 50%);
 		--font-family: sans-serif;
 		--font-size: 16px;
@@ -26,6 +26,7 @@
 @media (prefers-color-scheme: light) {
 	:root {
 		--text-color: hsl(var(--hue), 100%, 10%, 0.8);
+		--nav-color: hsl(var(--hue-nav), 75%, 51%);
 		--text-shadow: 0 0 7px hsl(var(--hue), 100%, 50%, 0);
 		--font-family: sans-serif;
 		--font-size: 16px;

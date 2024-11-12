@@ -64,7 +64,7 @@ Create a budgeting assistant that helps people spend money wisely and caters to 
 3. Cloudflare keeps Users and their accounts secure.
 4. Non-admin users are unauthorized for going to specific domains in the website.
 
-##5. References
+## 5. References
 
 -   [Astro - Website Builder](https://astro.build/)
 -   [Draw.io - Wireframe Maker](https://draw.io/)
