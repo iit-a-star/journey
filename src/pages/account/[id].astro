@@ -104,12 +104,12 @@ import { capitalize } from 'utilium';
 					</svg>
 				</div>
 			</div>}
-			<li class="header">
+			{transactions.length && <li class="header">
 				<p class="memo">Memo</p>
 				<p class="amount">Amount</p>
 				<p class="timestamp">Time</p>
 				<p class="details">Details</p>
-			</li>
+			</li>}
 			{transactions.map(tx => <TransactionLI transaction={tx} account={account.id} memoColor={colors.get(tx.metadata.category!)} />)}
 		</ul>}
 

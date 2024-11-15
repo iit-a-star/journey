@@ -29,10 +29,10 @@ const accounts = await getProfileAccounts(profile.id);
 <Main title="Accounts">
 	<div class="center"><h2>Your Accounts</h2></div>
 	{typeof accounts == 'string' ? accounts : <ul>
-		<li class="header">
+		{!!accounts.length && <li class="header">
 			<p class="type">Type</p>
 			<p class="name">Name</p>
-		</li>
+		</li>}
 		{accounts.map(account => <AccountLI {account} />)}
 	</ul>}
 	<div class="center"><a href="/account/open"><button>Open an account</button></a></div>
