@@ -12,10 +12,10 @@ Create a budgeting assistant that helps people spend money wisely and caters to 
 
 ### Tasks:
 
--   Joanne Porter: Creating UI/UX of the assistant
--   Numa Fatima: Creating a flowchart of the process.
--   James Prevett: Developing framework of the assistant using HTML, Astro, TypeScript, and more.
--   Michaelangelo Eldridge: Collaborating and merging ideas for the assistant and updating of this document.
+- Joanne Porter: Creating UI/UX of the assistant
+- Numa Fatima: Creating a flowchart of the process.
+- James Prevett: Developing framework of the assistant using HTML, Astro, TypeScript, and more.
+- Michaelangelo Eldridge: Collaborating and merging ideas for the assistant and updating of this document.
 
 ### Deliverables:
 
@@ -25,16 +25,16 @@ Create a budgeting assistant that helps people spend money wisely and caters to 
 
 #### In scope
 
--   Screen Development and User Interface Design
--   Saving user data and preferences in the database
--   Implementation of business logic for budgeting assistant
--   Integration/Functional testing
+- Screen Development and User Interface Design
+- Saving user data and preferences in the database
+- Implementation of business logic for budgeting assistant
+- Integration/Functional testing
 
 #### Out of scope:
 
--   Demo Project for demo purposes, not hosted anywhere
--   Implementing AI
--   No data validations, only accepting data from Users
+- Demo Project for demo purposes, not hosted anywhere
+- Implementing AI
+- No data validations, only accepting data from Users
 
 ## 2. Business Drivers
 
@@ -66,10 +66,10 @@ Create a budgeting assistant that helps people spend money wisely and caters to 
 
 ## 5. References
 
--   [Astro - Website Builder](https://astro.build/)
--   [Draw.io - Wireframe Maker](https://draw.io/)
--   [Figma - Design Maker](https://figma.com)
--   [Font Awesome - Font Customized](https://fontawesome.com/icons)
--   [MarkDown - Document Formatter](https://markdownguide.org/)
--   [Shadowlord - Color Picker](https://noeldelgado.github.io/shadowlord/#8080d7)
--   [TypeScript - Language Used](https://www.typescriptlang.org/)
+- [Astro - Website Builder](https://astro.build/)
+- [Draw.io - Wireframe Maker](https://draw.io/)
+- [Figma - Design Maker](https://figma.com)
+- [Font Awesome - Font Customized](https://fontawesome.com/icons)
+- [MarkDown - Document Formatter](https://markdownguide.org/)
+- [Shadowlord - Color Picker](https://noeldelgado.github.io/shadowlord/#8080d7)
+- [TypeScript - Language Used](https://www.typescriptlang.org/)
